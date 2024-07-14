@@ -2,15 +2,22 @@
 OpenAPI Specification Builder Library
 
 ```java
+package org.dynapi;
+
+import org.dynapi.openapispec.*;
+import org.dynapi.openapispec.core.*;
+import org.dynapi.openapispec.core.types.*;
+import org.json.JSONObject;
+
 public class Example {
     public static void main(String[] args) {
-        OpenApiInfo info = OpenApiInfo.builder()
+        OpenApiSpecBuilder.Meta meta = OpenApiSpecBuilder.Meta.builder()
                 .title("MyAPI")
                 .description("My API")
                 .version("1.0.0")
                 .logo("/assets/logo.png")
                 .build();
-        OpenApiSpec spec = new OpenApiSpec(info);
+        OpenApiSpecBuilder spec = new OpenApiSpecBuilder(meta);
         spec.addPath(new Path("/hello/<name>")
                 .addMethod("GET", new PathSchema()
                         .addPathParameter(Parameter.builder()
