@@ -37,10 +37,6 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
         options.put("example", example);
         return (T) this;
     }
-    public T example(List<String> example) {
-        options.put("example", example.toArray());
-        return (T) this;
-    }
 
     public JSONObject getOpenApiSpec() {
         Map<String, Object> combined = new HashMap<>();

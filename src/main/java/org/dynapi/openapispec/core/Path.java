@@ -7,9 +7,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter
 @ToString
 public class Path implements OpenApiSpecAble {
+    @Getter
     private final String path;
     private final Map<String, PathSchema> methods = new HashMap<>();
 
