@@ -1,5 +1,6 @@
 package org.dynapi.openapispec;
 
+import lombok.Builder;
 import org.dynapi.openapispec.core.Path;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -8,13 +9,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class OpenApiSpec {
-    private final OpenApiInfo info;
+public class OpenApiSpecBuilder {
+    private final Meta meta;
     private final Map<String, String> tagInfos = new HashMap<>();
     private final List<Path> paths = new ArrayList<>();
 
-    public OpenApiSpec(OpenApiInfo info) {
-        this.info = info;
+    public OpenApiSpecBuilder(Meta meta) {
+        this.meta = meta;
     }
 
     private String getFormattedDescription(Throwable error) {
@@ -29,7 +30,7 @@ public class OpenApiSpec {
                     **Detail:** %s
                     """, error.getClass().getSimpleName(), error.getMessage());
         }
-        String description = info.description;
+        String description = meta.description;
         return String.format("Last-Updated: %s\n%s\n%s", timestamp, errorInfo, description);
     }
 
@@ -37,13 +38,13 @@ public class OpenApiSpec {
         JSONObject spec = new JSONObject()
                 .put("openapi", "3.0.0")
                 .put("info", new JSONObject()
-                        .put("title", info.title)
-                        .put("version", info.version)
-                        .put("description", info.description)
+                        .put("title", meta.title)
+                        .put("version", meta.version)
+                        .put("description", meta.description)
                 );
-        if (info.logo != null)
+        if (meta.logo != null)
             spec.put("x-logo", new JSONObject()
-                    .put("url", info.logo)
+                    .put("url", meta.logo)
             );
         try {
             JSONObject paths = new JSONObject();
@@ -71,5 +72,13 @@ public class OpenApiSpec {
 
     public void addTag(String tag, String description) {
         tagInfos.put(tag, description);
+    }
+
+    @Builder(toBuilder = true)
+    public static class Meta {
+        public final String title;
+        public final String version;
+        public final String description;
+        public final String logo;
     }
 }
