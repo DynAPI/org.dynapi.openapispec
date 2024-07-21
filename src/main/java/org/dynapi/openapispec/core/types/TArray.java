@@ -18,28 +18,47 @@ public class TArray extends Schema<TArray> {
         this.types.addAll(Arrays.asList(types));
     }
 
+    /**
+     * @param size exact number of items in this array
+     */
     public TArray size(int size) {
         options.put("minItems", size);
         options.put("maxItems", size);
         return this;
     }
 
+    /**
+     * @param minSize minimum number of items in this array
+     */
     public TArray minSize(int minSize) {
         options.put("minItems", minSize);
         return this;
     }
 
+    /**
+     * @param maxSize maximum number of items in this array
+     */
     public TArray maxSize(int maxSize) {
         options.put("maxItems", maxSize);
         return this;
     }
 
+    /**
+     * marks that all items should be unique
+     */
     public TArray uniqueItems() { return uniqueItems(true); }
+    /**
+     * marks that all items should be unique
+     */
     public TArray uniqueItems(boolean uniqueItems) {
         options.put("uniqueItems", uniqueItems);
         return this;
     }
 
+    /**
+     * note: use this multiple times to allow multiple schemas
+     * @param schema schema for the values
+     */
     public TArray addType(@NonNull Schema<?> schema) {
         types.add(schema);
         return this;

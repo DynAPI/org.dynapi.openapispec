@@ -19,11 +19,18 @@ public class PathSchema implements OpenApiSpecAble {
         return this;
     }
 
+    /**
+     * note: tag description is set on the OpenApiSpecBuilder
+     * @param tag tag-name
+     */
     public PathSchema addTag(@NonNull String tag) {
         tags.add(tag);
         return this;
     }
 
+    /**
+     * @param parameter path-parameter
+     */
     public PathSchema addPathParameter(@NonNull Parameter parameter) {
         parameters.add(new JSONObject(parameter.getOpenApiSpec().toMap())
                 .put("in", "path")
@@ -31,6 +38,9 @@ public class PathSchema implements OpenApiSpecAble {
         return this;
     }
 
+    /**
+     * @param parameter query-parameter
+     */
     public PathSchema addQueryParameter(@NonNull Parameter parameter) {
         parameters.add(new JSONObject(parameter.getOpenApiSpec().toMap())
                 .put("in", "query")
@@ -38,9 +48,19 @@ public class PathSchema implements OpenApiSpecAble {
         return this;
     }
 
+    /**
+     * adds a request-body (in e.g. POST or PUT)
+     * @param body body schema
+     */
     public PathSchema body(@NonNull Schema<?> body) {
         return body(body, "application/json");
     }
+
+    /**
+     * adds a request-body (in e.g. POST or PUT)
+     * @param body body schema
+     * @param contentType content-type of the body
+     */
     public PathSchema body(@NonNull Schema<?> body, String contentType) {
         this.body = new JSONObject()
                 .put("content", new JSONObject()
@@ -51,18 +71,34 @@ public class PathSchema implements OpenApiSpecAble {
         return this;
     }
 
+    /**
+     * @param statusCode http-status-code
+     * @param response response-schema
+     */
     public PathSchema addResponse(int statusCode, @NonNull Schema<?> response) {
         return addResponse(statusCode, response, "application/json");
     }
+
+    /**
+     * @param statusCode http-status-code
+     * @param response response-schema
+     * @param contentType content-type of the response
+     */
     public PathSchema addResponse(int statusCode, @NonNull Schema<?> response, @NonNull String contentType) {
-        responses.put(
-                String.valueOf(statusCode),
-                new JSONObject()
-                        .put("description", Utils.statusCodeToText(statusCode))
-                        .put("content", new JSONObject()
-                                .put(contentType, response.getOpenApiSpec())
-                        )
-        );
+        String code = String.valueOf(statusCode);
+        if (responses.has(code)) {  // this code already exists. add addition content-type for the response
+            responses.getJSONObject(code).getJSONObject("description").getJSONObject("content")
+                    .put(contentType, response.getOpenApiSpec());
+        } else {
+            responses.put(
+                    code,
+                    new JSONObject()
+                            .put("description", Utils.statusCodeToText(statusCode))
+                            .put("content", new JSONObject()
+                                    .put(contentType, response.getOpenApiSpec())
+                            )
+            );
+        }
         return this;
     }
 

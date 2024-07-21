@@ -33,11 +33,6 @@ public class TNumber extends Schema<TNumber> {
         return this;
     }
 
-    public TNumber multipleOf(int value) {
-        options.put("multipleOf", value);
-        return this;
-    }
-
     public TNumber multipleOf(double value) {
         options.put("multipleOf", value);
         return this;

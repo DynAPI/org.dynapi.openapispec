@@ -38,11 +38,6 @@ public class TInteger extends Schema<TInteger> {
         return this;
     }
 
-    public TInteger multipleOf(double value) {
-        options.put("multipleOf", value);
-        return this;
-    }
-
     @Override
     protected JSONObject finalized() {
         return new JSONObject()

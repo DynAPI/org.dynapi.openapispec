@@ -12,16 +12,27 @@ public class TString extends Schema<TString> {
         super();
     }
 
-    public TString minLength(int minProperties) {
-        options.put("minProperties", minProperties);
+    /**
+     *
+     * @param minLength minimum length in characters
+     */
+    public TString minLength(int minLength) {
+        options.put("minLength", minLength);
         return this;
     }
 
-    public TString maxLength(int maxProperties) {
-        options.put("maxProperties", maxProperties);
+    /**
+     * @param maxLength maximum length in characters
+     */
+    public TString maxLength(int maxLength) {
+        options.put("maxLength", maxLength);
         return this;
     }
 
+    /**
+     * note: see {@code TString.CommonFormats.*}
+     * @param fmt name of a format
+     */
     public TString format(@NonNull String fmt) {
         options.put("format", fmt);
         return this;

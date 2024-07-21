@@ -17,24 +17,40 @@ public class TObject extends Schema<TObject> {
         super();
     }
 
+    /**
+     * @param properties marks properties that are required
+     */
     public TObject required(@NonNull String... properties) {
-        options.put("required", List.of(properties));
+        ((JSONArray) options.getOrDefault("required", new JSONArray())).putAll(properties);
         return this;
     }
 
+    /**
+     * @param property property-name
+     * @param value value schema
+     */
     public TObject addProperty(@NonNull String property, @NonNull Schema<?> value) {
         properties.put(property, value);
         return this;
     }
 
+    /**
+     * marks that this object accepts properties not specified via {@code addProperty}
+     */
     public TObject allowAdditionalProperties() {
         return allowAdditionalProperties(true);
     }
+    /**
+     * marks that this object accepts properties not specified via {@code addProperty}
+     */
     public TObject allowAdditionalProperties(boolean allowAdditionalProperties) {
         options.put("additionalProperties", allowAdditionalProperties);
         return this;
     }
 
+    /**
+     * marks that this object accepts properties not specified via {@code addProperty} with a specific schema
+     */
     public TObject additionalPropertiesOfSchema(@NonNull Schema<?> schema) {
         options.put("additionalProperties", schema);
         return this;

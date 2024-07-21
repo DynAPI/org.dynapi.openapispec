@@ -40,6 +40,10 @@ public class OpenApiSpecBuilder {
         return String.format("Last-Updated: %s\n%s\n%s", timestamp, errorInfo, description);
     }
 
+    /**
+     * generates the openapi-specification
+     * @return openapi-specification
+     */
     public JSONObject build() {
         JSONObject spec = new JSONObject()
                 .put("openapi", "3.0.0")
@@ -74,6 +78,11 @@ public class OpenApiSpecBuilder {
         return spec;
     }
 
+    /**
+     * generates the openapi-specification with error-details in the description
+     * @param error error during previous generation
+     * @return openapi-specification
+     */
     public JSONObject build(Throwable error) {
         JSONObject spec = new JSONObject()
                 .put("openapi", "3.0.0")
@@ -94,19 +103,36 @@ public class OpenApiSpecBuilder {
         return build().toString();
     }
 
+    /**
+     * adds {@code path} to the list of endpoints
+     * @param path path to add
+     */
     public OpenApiSpecBuilder addPath(@NonNull Path path) {
         paths.add(path);
         return this;
     }
 
+    /**
+     * adds a description to a tag that is referenced in some paths
+     * @param tag tag name
+     * @param description tag description
+     */
     public OpenApiSpecBuilder addTag(@NonNull String tag, @NonNull String description) {
         tagInfos.put(tag, description);
         return this;
     }
 
+    /**
+     * @param url the url of the server
+     */
     public OpenApiSpecBuilder addServer(@NonNull String url) {
         return addServer(url, null);
     }
+
+    /**
+     * @param url the url of the server
+     * @param description description of this server
+     */
     public OpenApiSpecBuilder addServer(@NonNull String url, String description) {
         JSONObject server = new JSONObject()
                 .put("url", url);

@@ -17,6 +17,10 @@ public class Path implements OpenApiSpecAble {
         this.path = path;
     }
 
+    /**
+     * @param method HTTP-Method (preferred in uppercase)
+     * @param schema path-schema
+     */
     public Path addMethod(String method, PathSchema schema) {
         methods.put(method, schema);
         return this;
