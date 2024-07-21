@@ -2,6 +2,7 @@ package org.dynapi.openapispec.core.types;
 
 import lombok.NonNull;
 import lombok.ToString;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -23,6 +24,19 @@ public class TObject extends Schema<TObject> {
 
     public TObject addProperty(@NonNull String property, @NonNull Schema<?> value) {
         properties.put(property, value);
+        return this;
+    }
+
+    public TObject allowAdditionalProperties() {
+        return allowAdditionalProperties(true);
+    }
+    public TObject allowAdditionalProperties(boolean allowAdditionalProperties) {
+        options.put("additionalProperties", allowAdditionalProperties);
+        return this;
+    }
+
+    public TObject additionalPropertiesOfSchema(@NonNull Schema<?> schema) {
+        options.put("additionalProperties", schema);
         return this;
     }
 

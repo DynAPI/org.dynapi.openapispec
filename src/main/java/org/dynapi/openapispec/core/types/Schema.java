@@ -3,10 +3,10 @@ package org.dynapi.openapispec.core.types;
 import lombok.NonNull;
 import lombok.ToString;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @ToString
@@ -40,8 +40,25 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
         if (examples.length == 1) {
             options.put("example", examples[0]);
         } else {
-            options.put("examples", examples);
+            options.put("examples", new JSONArray(examples));
         }
+        return getThis();
+    }
+
+    public T options(@NonNull Object... options) {
+        this.options.put("enum", new JSONArray(options));
+        return getThis();
+    }
+
+    public T readOnly() {
+        options.remove("writeOnly");
+        this.options.put("readOnly", true);
+        return getThis();
+    }
+
+    public T writeOnly() {
+        options.remove("readOnly");
+        options.put("writeOnly", true);
         return getThis();
     }
 

@@ -58,7 +58,7 @@ public class TArray extends Schema<TArray> {
                 array.put(item.finalized());
             }
             finalizedItems = new JSONObject()
-                    .put("anyOf", array);
+                    .put("oneOf", array);
         }
 
         return new JSONObject()

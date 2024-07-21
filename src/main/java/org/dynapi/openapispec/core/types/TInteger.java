@@ -22,14 +22,24 @@ public class TInteger extends Schema<TInteger> {
     }
 
     public TInteger lte(int value) {
-        options.put("minimum", value);
-        options.put("exclusiveMinimum", false);
+        options.put("maximum", value);
+        options.put("exclusiveMaximum", false);
         return this;
     }
 
     public TInteger lt(int value) {
-        options.put("minimum", value);
-        options.put("exclusiveMinimum", true);
+        options.put("maximum", value);
+        options.put("exclusiveMaxmimum", true);
+        return this;
+    }
+
+    public TInteger multipleOf(int value) {
+        options.put("multipleOf", value);
+        return this;
+    }
+
+    public TInteger multipleOf(double value) {
+        options.put("multipleOf", value);
         return this;
     }
 

@@ -22,14 +22,24 @@ public class TNumber extends Schema<TNumber> {
     }
 
     public TNumber lte(int value) {
-        options.put("minimum", value);
-        options.put("exclusiveMinimum", false);
+        options.put("maximum", value);
+        options.put("exclusiveMaximum", false);
         return this;
     }
 
     public TNumber lt(int value) {
-        options.put("minimum", value);
-        options.put("exclusiveMinimum", true);
+        options.put("maximum", value);
+        options.put("exclusiveMaxmimum", true);
+        return this;
+    }
+
+    public TNumber multipleOf(int value) {
+        options.put("multipleOf", value);
+        return this;
+    }
+
+    public TNumber multipleOf(double value) {
+        options.put("multipleOf", value);
         return this;
     }
 
