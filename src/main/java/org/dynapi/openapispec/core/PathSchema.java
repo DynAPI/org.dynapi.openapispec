@@ -105,7 +105,8 @@ public class PathSchema implements OpenApiSpecAble {
     @Override
     public JSONObject getOpenApiSpec() {
         JSONObject spec = new JSONObject();
-        spec.put("tags", tags);
+        if (!tags.isEmpty())
+            spec.put("tags", tags);
         if (summary != null)
             spec.put("summary", summary);
         if (!parameters.isEmpty())
