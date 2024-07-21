@@ -35,8 +35,10 @@ public class OpenApiSpecBuilder {
         if (error != null) {
             description.append("# Failed to generate openapi-specification\n");
             description.append(String.format("**Type:** %s\n", error.getClass().getSimpleName()));
-            description.append(String.format("**Detail:** %s\n\n", error.getMessage()));
-            description.append("# Description\n");
+            if (error.getMessage() != null)
+                description.append(String.format("**Detail:** %s\n\n", error.getMessage()));
+            if (meta.description != null)
+                description.append("# Description\n");
         }
 
         if (meta.description != null)
