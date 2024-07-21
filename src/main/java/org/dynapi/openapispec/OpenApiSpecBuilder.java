@@ -25,19 +25,24 @@ public class OpenApiSpecBuilder {
     }
 
     protected String getFormattedDescription(Throwable error) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        StringBuilder description = new StringBuilder();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         String timestamp = dateFormat.format(new Date());
-        String errorInfo = "";
+        description.append(String.format("Last-Updated: %s\n\n", timestamp));
+
         if (error != null) {
-            errorInfo = new StringBuilder()
-                    .append("# Failed to generate openapi-specification\n")
-                    .append(String.format("**Type:** %s\n", error.getClass().getSimpleName()))
-                    .append(String.format("**Detail:** %s\n", error.getMessage()))
-                    .toString();
+            description.append("# Failed to generate openapi-specification\n");
+            description.append(String.format("**Type:** %s\n", error.getClass().getSimpleName()));
+            description.append(String.format("**Detail:** %s\n\n", error.getMessage()));
+            description.append("# Description\n");
         }
-        String description = meta.description;
-        return String.format("Last-Updated: %s\n%s\n%s", timestamp, errorInfo, description);
+
+        if (meta.description != null)
+            description.append(String.format("%s\n", meta.description));
+
+        return description.toString();
     }
 
     /**
