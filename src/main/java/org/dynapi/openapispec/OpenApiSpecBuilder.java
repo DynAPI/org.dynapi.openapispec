@@ -1,6 +1,7 @@
 package org.dynapi.openapispec;
 
 import lombok.Builder;
+import lombok.NonNull;
 import org.dynapi.openapispec.core.Path;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,9 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class OpenApiSpecBuilder {
-    private final Meta meta;
-    private final Map<String, String> tagInfos = new HashMap<>();
-    private final List<Path> paths = new ArrayList<>();
+    protected final Meta meta;
+    protected final Map<String, String> tagInfos = new HashMap<>();
+    protected final List<Path> paths = new ArrayList<>();
+    protected final List<JSONObject> servers = new ArrayList<>();
 
     public OpenApiSpecBuilder(Meta meta) {
         this.meta = meta;
@@ -51,11 +53,15 @@ public class OpenApiSpecBuilder {
                     .put("url", meta.logo)
             );
 
+        if (!servers.isEmpty())
+            spec.put("servers", servers);
+
         JSONObject paths = new JSONObject();
         for (Path path : this.paths) {
             paths.put(path.getPath(), path.getOpenApiSpec());
         }
         spec.put("paths", paths);
+
         JSONArray tags = new JSONArray();
         for (Map.Entry<String, String> entry : tagInfos.entrySet()) {
             tags.put(new JSONObject()
@@ -64,6 +70,7 @@ public class OpenApiSpecBuilder {
             );
         }
         spec.put("tags", tags);
+
         return spec;
     }
 
@@ -87,12 +94,26 @@ public class OpenApiSpecBuilder {
         return build().toString();
     }
 
-    public void addPath(Path path) {
+    public OpenApiSpecBuilder addPath(@NonNull Path path) {
         paths.add(path);
+        return this;
     }
 
-    public void addTag(String tag, String description) {
+    public OpenApiSpecBuilder addTag(@NonNull String tag, @NonNull String description) {
         tagInfos.put(tag, description);
+        return this;
+    }
+
+    public OpenApiSpecBuilder addServer(@NonNull String url) {
+        return addServer(url, null);
+    }
+    public OpenApiSpecBuilder addServer(@NonNull String url, String description) {
+        JSONObject server = new JSONObject()
+                .put("url", url);
+        if (description != null)
+            server.put("description", description);
+        servers.add(server);
+        return this;
     }
 
     @Builder(toBuilder = true)
