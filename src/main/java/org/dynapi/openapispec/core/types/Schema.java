@@ -17,25 +17,27 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
         this.options = new HashMap<>();
     }
 
+    protected T getThis() { return (T) this; }
+
     public T description(String description) {
         options.put("description", description);
-        return (T) this;
+        return getThis();
     }
 
     public T defaultValue(Object value) {
         options.put("default", value);
-        return (T) this;
+        return getThis();
     }
 
     public T nullable() { return nullable(true); };
     public T nullable(boolean isNullable) {
         options.put("nullable", isNullable);
-        return (T) this;
+        return getThis();
     }
 
     public T example(String... example) {
         options.put("example", example);
-        return (T) this;
+        return getThis();
     }
 
     public JSONObject getOpenApiSpec() {
