@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @ToString
 @SuppressWarnings("unchecked")
@@ -49,15 +50,24 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
     }
 
     /**
-     * adds on or more examples to this schema
-     * @param examples one or more
+     * set an example to this schema
+     * @param example one or more
      */
-    public T example(@NonNull Object... examples) {
-        if (examples.length == 1) {
-            options.put("example", examples[0]);
-        } else {
-            options.put("examples", new JSONArray(examples));
-        }
+    public T example(@NonNull Object example) {
+        options.remove("examples");
+        options.put("example", example);
+        return getThis();
+    }
+
+    /**
+     * adds an example to this schema
+     * @param name distinct example name
+     * @param example example value
+     */
+    public T addExample(@NonNull String name, Object example) {
+        options.remove("example");  // remove single example
+        JSONObject examples = (JSONObject) Objects.requireNonNull(options.putIfAbsent("examples", new JSONObject()));
+        examples.put(name, example);
         return getThis();
     }
 
