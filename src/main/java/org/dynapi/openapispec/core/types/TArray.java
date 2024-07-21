@@ -1,5 +1,6 @@
 package org.dynapi.openapispec.core.types;
 
+import lombok.NonNull;
 import lombok.ToString;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,7 +40,7 @@ public class TArray extends Schema<TArray> {
         return this;
     }
 
-    public TArray addType(Schema<?> schema) {
+    public TArray addType(@NonNull Schema<?> schema) {
         types.add(schema);
         return this;
     }

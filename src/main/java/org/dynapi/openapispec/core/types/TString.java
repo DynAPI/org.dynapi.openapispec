@@ -1,5 +1,6 @@
 package org.dynapi.openapispec.core.types;
 
+import lombok.NonNull;
 import lombok.ToString;
 import org.json.JSONObject;
 
@@ -19,12 +20,12 @@ public class TString extends Schema<TString> {
         return this;
     }
 
-    public TString format(String fmt) {
+    public TString format(@NonNull String fmt) {
         options.put("format", fmt);
         return this;
     }
 
-    public TString pattern(String pattern) {
+    public TString pattern(@NonNull String pattern) {
         options.put("pattern", pattern);
         return this;
     }

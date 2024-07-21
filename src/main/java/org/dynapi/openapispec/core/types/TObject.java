@@ -1,5 +1,6 @@
 package org.dynapi.openapispec.core.types;
 
+import lombok.NonNull;
 import lombok.ToString;
 import org.json.JSONObject;
 
@@ -15,12 +16,12 @@ public class TObject extends Schema<TObject> {
         super();
     }
 
-    public TObject required(String... properties) {
+    public TObject required(@NonNull String... properties) {
         options.put("required", List.of(properties));
         return this;
     }
 
-    public TObject addProperty(String property, Schema<?> value) {
+    public TObject addProperty(@NonNull String property, @NonNull Schema<?> value) {
         properties.put(property, value);
         return this;
     }

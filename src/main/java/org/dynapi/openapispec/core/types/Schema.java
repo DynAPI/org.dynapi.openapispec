@@ -1,5 +1,6 @@
 package org.dynapi.openapispec.core.types;
 
+import lombok.NonNull;
 import lombok.ToString;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.json.JSONObject;
@@ -19,7 +20,7 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
 
     protected T getThis() { return (T) this; }
 
-    public T description(String description) {
+    public T description(@NonNull String description) {
         options.put("description", description);
         return getThis();
     }
@@ -35,8 +36,12 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
         return getThis();
     }
 
-    public T example(String... example) {
-        options.put("example", example);
+    public T example(@NonNull Object... examples) {
+        if (examples.length == 1) {
+            options.put("example", examples[0]);
+        } else {
+            options.put("examples", examples);
+        }
         return getThis();
     }
 
