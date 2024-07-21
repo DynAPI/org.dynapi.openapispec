@@ -66,7 +66,8 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
      */
     public T addExample(@NonNull String name, Object example) {
         options.remove("example");  // remove single example
-        JSONObject examples = (JSONObject) Objects.requireNonNull(options.putIfAbsent("examples", new JSONObject()));
+        JSONObject examples = (JSONObject) options.getOrDefault("examples", new JSONObject());
+        options.put("examples", example);
         examples.put(name, example);
         return getThis();
     }
