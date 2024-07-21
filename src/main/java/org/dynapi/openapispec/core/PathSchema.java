@@ -87,7 +87,7 @@ public class PathSchema implements OpenApiSpecAble {
     public PathSchema addResponse(int statusCode, @NonNull Schema<?> response, @NonNull String contentType) {
         String code = String.valueOf(statusCode);
         if (responses.has(code)) {  // this code already exists. add addition content-type for the response
-            responses.getJSONObject(code).getJSONObject("description").getJSONObject("content")
+            responses.getJSONObject(code).getJSONObject("content")
                     .put(contentType, response.getOpenApiSpec());
         } else {
             responses.put(
