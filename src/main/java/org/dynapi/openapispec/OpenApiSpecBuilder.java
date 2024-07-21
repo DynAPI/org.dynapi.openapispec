@@ -18,17 +18,21 @@ public class OpenApiSpecBuilder {
         this.meta = meta;
     }
 
-    private String getFormattedDescription(Throwable error) {
+    protected String getFormattedDescription() {
+        return getFormattedDescription(null);
+    }
+
+    protected String getFormattedDescription(Throwable error) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         String timestamp = dateFormat.format(new Date());
         String errorInfo = "";
         if (error != null) {
-            errorInfo = String.format("""
-                    # Failed to generate openapi-specification
-                    **Type:** %s
-                    **Detail:** %s
-                    """, error.getClass().getSimpleName(), error.getMessage());
+            errorInfo = new StringBuilder()
+                    .append("# Failed to generate openapi-specification\n")
+                    .append(String.format("**Type:** %s\n", error.getClass().getSimpleName()))
+                    .append(String.format("**Detail:** %s\n", error.getMessage()))
+                    .toString();
         }
         String description = meta.description;
         return String.format("Last-Updated: %s\n%s\n%s", timestamp, errorInfo, description);
@@ -40,30 +44,47 @@ public class OpenApiSpecBuilder {
                 .put("info", new JSONObject()
                         .put("title", meta.title)
                         .put("version", meta.version)
-                        .put("description", meta.description)
+                        .put("description", getFormattedDescription())
                 );
         if (meta.logo != null)
             spec.put("x-logo", new JSONObject()
                     .put("url", meta.logo)
             );
-        try {
-            JSONObject paths = new JSONObject();
-            for (Path path : this.paths) {
-                paths.put(path.getPath(), path.getOpenApiSpec());
-            }
-            JSONArray tags = new JSONArray();
-            for (Map.Entry<String, String> entry : tagInfos.entrySet()) {
-                tags.put(new JSONObject()
-                        .put("name", entry.getKey())
-                        .put("description", entry.getValue())
-                );
-            }
-            spec.put("tags", tags);
-            spec.put("paths", paths);
-        } catch (Exception error) {
-            spec.getJSONObject("info").put("description", getFormattedDescription(error));
+
+        JSONObject paths = new JSONObject();
+        for (Path path : this.paths) {
+            paths.put(path.getPath(), path.getOpenApiSpec());
         }
+        spec.put("paths", paths);
+        JSONArray tags = new JSONArray();
+        for (Map.Entry<String, String> entry : tagInfos.entrySet()) {
+            tags.put(new JSONObject()
+                    .put("name", entry.getKey())
+                    .put("description", entry.getValue())
+            );
+        }
+        spec.put("tags", tags);
         return spec;
+    }
+
+    public JSONObject build(Throwable error) {
+        JSONObject spec = new JSONObject()
+                .put("openapi", "3.0.0")
+                .put("info", new JSONObject()
+                        .put("title", meta.title)
+                        .put("version", meta.version)
+                        .put("description", getFormattedDescription(error))
+                );
+        if (meta.logo != null)
+            spec.put("x-logo", new JSONObject()
+                    .put("url", meta.logo)
+            );
+        return spec;
+    }
+
+    @Override
+    public String toString() {
+        return build().toString();
     }
 
     public void addPath(Path path) {
