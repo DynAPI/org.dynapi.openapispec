@@ -29,7 +29,7 @@ tasks.test {
 
 publishing {
     publications {
-        jsonSchemaGen(MavenPublication) {
+        openApiSpec(MavenPublication) {
             from components.java
         }
     }
