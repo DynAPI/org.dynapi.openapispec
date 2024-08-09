@@ -1,6 +1,7 @@
 package org.dynapi.openapispec.core.objects;
 
 import lombok.Builder;
+import lombok.NonNull;
 import lombok.ToString;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.dynapi.openapispec.core.Utils;
@@ -19,6 +20,7 @@ public class Operation implements OpenApiSpecAble {
     public final String operationId;
     public final List<Parameter> parameters;
     public final RequestBody requestBody;
+    @NonNull
     public final Map<String, Response> responses;
 //    public final Map<String, Callback> callbacks;
     public final Boolean deprecated;
