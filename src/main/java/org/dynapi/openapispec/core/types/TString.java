@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.util.regex.Pattern;
 
 @ToString(callSuper = true)
-public class TString extends Schema<TString> {
+public class TString extends Schema<TString, String> {
     public TString() {
         super();
     }

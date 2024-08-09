@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @ToString(callSuper = true)
-public class TObject extends Schema<TObject> {
-    private final Map<String, Schema<?>> properties = new HashMap<>();
+public class TObject extends Schema<TObject, JSONObject> {
+    private final Map<String, Schema<?, ?>> properties = new HashMap<>();
 
     public TObject() {
         super();
@@ -29,7 +29,7 @@ public class TObject extends Schema<TObject> {
      * @param property property-name
      * @param value value schema
      */
-    public TObject addProperty(@NonNull String property, @NonNull Schema<?> value) {
+    public TObject addProperty(@NonNull String property, @NonNull Schema<?, ?> value) {
         properties.put(property, value);
         return this;
     }
@@ -51,7 +51,7 @@ public class TObject extends Schema<TObject> {
     /**
      * marks that this object accepts properties not specified via {@code addProperty} with a specific schema
      */
-    public TObject additionalPropertiesOfSchema(@NonNull Schema<?> schema) {
+    public TObject additionalPropertiesOfSchema(@NonNull Schema<?, ?> schema) {
         options.put("additionalProperties", schema);
         return this;
     }

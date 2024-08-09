@@ -11,19 +11,19 @@ import java.util.Map;
 
 @ToString
 @SuppressWarnings("unchecked")
-public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
+public abstract class Schema<THIS extends Schema<THIS, ?>, TYPE> implements OpenApiSpecAble {
     protected final Map<String, Object> options;
 
     public Schema() {
         this.options = new HashMap<>();
     }
 
-    protected T getThis() { return (T) this; }
+    protected THIS getThis() { return (THIS) this; }
 
     /**
      * @param description schema description
      */
-    public T description(@NonNull String description) {
+    public THIS description(@NonNull String description) {
         options.put("description", description);
         return getThis();
     }
@@ -31,7 +31,7 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
     /**
      * @param value default-value if absent
      */
-    public T defaultValue(Object value) {
+    public THIS defaultValue(TYPE value) {
         options.put("default", value);
         return getThis();
     }
@@ -39,11 +39,11 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
     /**
      * marks that this field can be {@code null}
      */
-    public T nullable() { return nullable(true); };
+    public THIS nullable() { return nullable(true); };
     /**
      * marks that this field can be {@code null}
      */
-    public T nullable(boolean isNullable) {
+    public THIS nullable(boolean isNullable) {
         options.put("nullable", isNullable);
         return getThis();
     }
@@ -52,7 +52,7 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
      * set an example to this schema
      * @param example one or more
      */
-    public T example(@NonNull Object example) {
+    public THIS example(@NonNull TYPE example) {
         options.remove("examples");
         options.put("example", example);
         return getThis();
@@ -63,7 +63,7 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
      * @param name distinct example name
      * @param example example value
      */
-    public T addExample(@NonNull String name, Object example) {
+    public THIS addExample(@NonNull String name, TYPE example) {
         return addExample(name, example, null);
     }
     /**
@@ -72,7 +72,7 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
      * @param example example value
      * @param summary short description for this example
      */
-    public T addExample(@NonNull String name, Object example, String summary) {
+    public THIS addExample(@NonNull String name, TYPE example, String summary) {
         this.options.remove("example");  // remove single example
         if (!this.options.containsKey("examples"))
             this.options.put("examples", new JSONObject());
@@ -88,7 +88,7 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
      * specify the only allowed options
      * @param options options that are allowed
      */
-    public T options(@NonNull Object... options) {
+    public THIS options(@NonNull Object... options) {
         this.options.put("enum", new JSONArray(options));
         return getThis();
     }
@@ -97,7 +97,7 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
      * marks this property as only used in GET (not POST/PUT/PATCH)<br>
      * note: only for direct properties of {@code TObject}
      */
-    public T readOnly() {
+    public THIS readOnly() {
         options.remove("writeOnly");
         this.options.put("readOnly", true);
         return getThis();
@@ -107,7 +107,7 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
      * marks this property as only used in POST/PUT/PATCH (not GET)<br>
      * note: only for direct properties of {@code TObject}
      */
-    public T writeOnly() {
+    public THIS writeOnly() {
         options.remove("readOnly");
         options.put("writeOnly", true);
         return getThis();

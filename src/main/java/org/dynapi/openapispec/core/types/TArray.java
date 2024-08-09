@@ -10,10 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 
 @ToString(callSuper = true)
-public class TArray extends Schema<TArray> {
-    private final List<Schema<?>> types = new ArrayList<>();
+public class TArray extends Schema<TArray, Object[]> {
+    private final List<Schema<?, ?>> types = new ArrayList<>();
 
-    public TArray(Schema<?>... types) {
+    public TArray(Schema<?, ?>... types) {
         super();
         this.types.addAll(Arrays.asList(types));
     }
@@ -59,7 +59,7 @@ public class TArray extends Schema<TArray> {
      * note: use this multiple times to allow multiple schemas
      * @param schema schema for the values
      */
-    public TArray addType(@NonNull Schema<?> schema) {
+    public TArray addType(@NonNull Schema<?, ?> schema) {
         types.add(schema);
         return this;
     }

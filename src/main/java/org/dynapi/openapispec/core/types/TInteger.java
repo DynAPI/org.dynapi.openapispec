@@ -4,7 +4,7 @@ import lombok.ToString;
 import org.json.JSONObject;
 
 @ToString(callSuper = true)
-public class TInteger extends Schema<TInteger> {
+public class TInteger extends Schema<TInteger, Integer> {
     public TInteger() {
         super();
     }
