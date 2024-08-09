@@ -14,9 +14,9 @@ public class Path implements OpenApiSpecAble {
     private final String path;
     private String summary = null;
     private String description = null;
-    private boolean deprecated = false;
+    private Boolean deprecated = null;
     private JSONObject externalDocs = null;
-    private final Map<Operation, PathSchema> methods = new HashMap<>();
+    private final Map<String, PathSchema> methods = new HashMap<>();
 
     public Path(String path) {
         this.path = path;
@@ -57,7 +57,7 @@ public class Path implements OpenApiSpecAble {
      * @param schema path-schema
      */
     public Path addMethod(@NonNull Operation operation, @NonNull PathSchema schema) {
-        methods.put(operation, schema);
+        methods.put(operation.value, schema);
         return this;
     }
 
@@ -83,20 +83,11 @@ public class Path implements OpenApiSpecAble {
 
     @Override
     public JSONObject getOpenApiSpec() {
-        JSONObject spec = new JSONObject();
-
-        if (summary != null)
-            spec.put("summary", summary);
-        if (description != null)
-            spec.put("description", description);
-        if (deprecated)
-            spec.put("deprecated", true);
-        if (externalDocs != null)
-            spec.put("externalDocs", externalDocs);
-
-        for (var entry : methods.entrySet()) {
-            spec.put(entry.getKey().value, entry.getValue().getOpenApiSpec());
-        }
-        return spec;
+        return new JSONObject()
+                .put("summary", summary)
+                .put("description", description)
+                .put("deprecated", deprecated)
+                .put("externalDocs", externalDocs)
+                .put("methods", Utils.mapOpenApiSpecAble(methods));
     }
 }

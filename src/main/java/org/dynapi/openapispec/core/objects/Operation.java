@@ -21,7 +21,7 @@ public class Operation implements OpenApiSpecAble {
     public final RequestBody requestBody;
     public final Map<String, Response> responses;
 //    public final Map<String, Callback> callbacks;
-    public final boolean deprecated;
+    public final Boolean deprecated;
     public final Map<String, String[]>[] security;
     public final List<Server> servers;
 

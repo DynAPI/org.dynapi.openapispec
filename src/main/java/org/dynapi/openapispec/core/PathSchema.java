@@ -2,6 +2,7 @@ package org.dynapi.openapispec.core;
 
 import lombok.NonNull;
 import org.dynapi.openapispec.core.objects.Parameter;
+import org.dynapi.openapispec.core.objects.RequestBody;
 import org.dynapi.openapispec.core.types.Schema;
 import org.json.JSONObject;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class PathSchema implements OpenApiSpecAble {
     private String summary = null;
     private final List<String> tags = new ArrayList<>();
-    private final List<JSONObject> parameters = new ArrayList<>();
+    private final List<Parameter> parameters = new ArrayList<>();
     private JSONObject body = null;
     private final JSONObject responses = new JSONObject();
 
@@ -30,22 +31,10 @@ public class PathSchema implements OpenApiSpecAble {
     }
 
     /**
-     * @param parameter path-parameter
+     * @param parameter parameter to add
      */
-    public PathSchema addPathParameter(@NonNull Parameter parameter) {
-        parameters.add(new JSONObject(parameter.getOpenApiSpec().toMap())
-                .put("in", "path")
-        );
-        return this;
-    }
-
-    /**
-     * @param parameter query-parameter
-     */
-    public PathSchema addQueryParameter(@NonNull Parameter parameter) {
-        parameters.add(new JSONObject(parameter.getOpenApiSpec().toMap())
-                .put("in", "query")
-        );
+    public PathSchema addParameter(@NonNull Parameter parameter) {
+        parameters.add(parameter);
         return this;
     }
 
@@ -105,11 +94,10 @@ public class PathSchema implements OpenApiSpecAble {
 
     @Override
     public JSONObject getOpenApiSpec() {
-        JSONObject spec = new JSONObject();
+        JSONObject spec = new JSONObject()
+                .put("summary", summary);
         if (!tags.isEmpty())
             spec.put("tags", tags);
-        if (summary != null)
-            spec.put("summary", summary);
         if (!parameters.isEmpty())
             spec.put("parameters", parameters);
         if (body != null)

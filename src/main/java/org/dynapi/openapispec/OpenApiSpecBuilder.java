@@ -16,9 +16,9 @@ import java.util.List;
 public class OpenApiSpecBuilder {
     protected final Info info;
     protected String logo = null;
-    protected final Map<String, String> tagInfos = new HashMap<>();
+    protected final List<Tag> tags = new ArrayList<>();
     protected final List<Path> paths = new ArrayList<>();
-    protected final List<JSONObject> servers = new ArrayList<>();
+    protected final List<Server> servers = new ArrayList<>();
     protected final JSONObject components = new JSONObject();
 
     public OpenApiSpecBuilder(Info info) {
@@ -74,7 +74,7 @@ public class OpenApiSpecBuilder {
             );
 
         if (!servers.isEmpty())
-            spec.put("servers", servers);
+            spec.put("servers", Utils.mapOpenApiSpecAble(servers));
 
         JSONObject paths = new JSONObject();
         for (Path path : this.paths) {
@@ -82,14 +82,8 @@ public class OpenApiSpecBuilder {
         }
         spec.put("paths", paths);
 
-        JSONArray tags = new JSONArray();
-        for (Map.Entry<String, String> entry : tagInfos.entrySet()) {
-            tags.put(new JSONObject()
-                    .put("name", entry.getKey())
-                    .put("description", entry.getValue())
-            );
-        }
-        spec.put("tags", tags);
+        if (!tags.isEmpty())
+            spec.put("tags", Utils.mapOpenApiSpecAble(tags));
 
         if (!components.isEmpty())
             spec.put("components", components);
@@ -123,6 +117,10 @@ public class OpenApiSpecBuilder {
         return build().toString();
     }
 
+    /**
+     * adds the x-logo attribute
+     * @param logo path to the logo
+     */
     public OpenApiSpecBuilder logo(String logo) {
         this.logo = logo;
         return this;
@@ -140,29 +138,16 @@ public class OpenApiSpecBuilder {
     /**
      * adds a description to a tag that is referenced in some paths
      * @param tag tag name
-     * @param description tag description
      */
-    public OpenApiSpecBuilder addTag(@NonNull String tag, @NonNull String description) {
-        tagInfos.put(tag, description);
+    public OpenApiSpecBuilder addTag(@NonNull Tag tag) {
+        tags.add(tag);
         return this;
     }
 
     /**
-     * @param url the url of the server
+     * @param server server to add
      */
-    public OpenApiSpecBuilder addServer(@NonNull String url) {
-        return addServer(url, null);
-    }
-
-    /**
-     * @param url the url of the server
-     * @param description description of this server
-     */
-    public OpenApiSpecBuilder addServer(@NonNull String url, String description) {
-        JSONObject server = new JSONObject()
-                .put("url", url);
-        if (description != null)
-            server.put("description", description);
+    public OpenApiSpecBuilder addServer(@NonNull Server server) {
         servers.add(server);
         return this;
     }
