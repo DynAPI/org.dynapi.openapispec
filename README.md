@@ -1,3 +1,5 @@
+[![Publish Build to Github Releases](https://github.com/DynAPI/org.dynapi.openapispec/actions/workflows/publish-release.yaml/badge.svg)](https://github.com/DynAPI/org.dynapi.openapispec/actions/workflows/publish-release.yaml)
+[![Publish package to GitHub Packages](https://github.com/DynAPI/org.dynapi.openapispec/actions/workflows/publish-package.yaml/badge.svg)](https://github.com/DynAPI/org.dynapi.openapispec/actions/workflows/publish-package.yaml)
 # org.dynapi.openapispec
 OpenAPI Specification Builder Library
 
