@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.json.JSONObject;
 
+import java.util.List;
 import java.util.Map;
 
 @ToString
@@ -15,10 +16,10 @@ public class OpenApi implements OpenApiSpecAble {
     public final String openapiVersion = "3.0.0";
     @NonNull
     public final Info info;
-    public final Server[] servers;
+    public final List<Server> servers;
     public final Components components;
     public final Map<String, String[]>[] security;
-    public final Tag[] tags;
+    public final List<Tag> tags;
     public final ExternalDocumentation externalDocs;
 
     @Override

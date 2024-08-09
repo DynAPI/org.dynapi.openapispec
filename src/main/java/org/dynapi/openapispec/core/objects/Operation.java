@@ -6,23 +6,24 @@ import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.dynapi.openapispec.core.Utils;
 import org.json.JSONObject;
 
+import java.util.List;
 import java.util.Map;
 
 @ToString
 @Builder(toBuilder = true)
 public class Operation implements OpenApiSpecAble {
-    public final String[] tags;
+    public final List<String> tags;
     public final String summary;
     public final String description;
     public final ExternalDocumentation externalDocs;
     public final String operationId;
-    public final Parameter[] parameters;
+    public final List<Parameter> parameters;
     public final RequestBody requestBody;
     public final Map<String, Response> responses;
 //    public final Map<String, Callback> callbacks;
     public final boolean deprecated;
     public final Map<String, String[]>[] security;
-    public final Server[] servers;
+    public final List<Server> servers;
 
     @Override
     public JSONObject getOpenApiSpec() {

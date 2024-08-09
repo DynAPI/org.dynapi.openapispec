@@ -6,6 +6,8 @@ import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.dynapi.openapispec.core.Utils;
 import org.json.JSONObject;
 
+import java.util.List;
+
 @ToString
 @Builder(toBuilder = true)
 public class Path implements OpenApiSpecAble {
@@ -19,8 +21,8 @@ public class Path implements OpenApiSpecAble {
     public final Operation head;
     public final Operation patch;
     public final Operation trace;
-    public final Server[] servers;
-    public final Parameter[] parameters;
+    public final List<Server> servers;
+    public final List<Parameter> parameters;
 
     @Override
     public JSONObject getOpenApiSpec() {
