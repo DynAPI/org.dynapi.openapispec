@@ -1,6 +1,6 @@
 ### Project Specific ###
 /tmp/
-/src/main/test/Testing.java
+/src/test/java/DevTester.java
 
 # Package Files #
 *.jar
