@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @ToString
 @SuppressWarnings("unchecked")
@@ -75,12 +74,12 @@ public abstract class Schema<T extends Schema<T>> implements OpenApiSpecAble {
      */
     public T addExample(@NonNull String name, Object example, String summary) {
         this.options.remove("example");  // remove single example
-        JSONObject examples = (JSONObject) this.options.getOrDefault("examples", new JSONObject());
-        this.options.put("examples", examples);
+        if (!this.options.containsKey("examples"))
+            this.options.put("examples", new JSONObject());
+        JSONObject examples = (JSONObject) this.options.get("examples");
         JSONObject exampleObject = new JSONObject()
-                .put("value", example);
-        if (summary != null)
-            exampleObject.put("summary", summary);
+                .put("value", example)
+                .put("summary", summary);
         examples.put(name, exampleObject);
         return getThis();
     }

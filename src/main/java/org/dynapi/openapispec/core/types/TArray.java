@@ -72,12 +72,8 @@ public class TArray extends Schema<TArray> {
         } else if (types.size() == 1) {
             finalizedItems = types.get(0).finalized();
         } else {
-            JSONArray array = new JSONArray();
-            for (Schema<?> item : types) {
-                array.put(item.finalized());
-            }
             finalizedItems = new JSONObject()
-                    .put("oneOf", array);
+                    .put("oneOf", new JSONArray(types.stream().map(Schema::finalized).toList()));
         }
 
         return new JSONObject()

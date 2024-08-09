@@ -6,8 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @ToString(callSuper = true)
 public class TObject extends Schema<TObject> {
@@ -72,10 +72,9 @@ public class TObject extends Schema<TObject> {
             return new JSONObject()
                     .put("type", "object");
 
-        Map<String, JSONObject> finalizedProperties = new HashMap<>();
-        for (Map.Entry<String, Schema<?>> entry : properties.entrySet()) {
-            finalizedProperties.put(entry.getKey(), entry.getValue().finalized());
-        }
+        Map<String, JSONObject> finalizedProperties = properties.entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().finalized()));
 
         return new JSONObject()
                 .put("type", "object")
