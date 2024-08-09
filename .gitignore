@@ -1,6 +1,6 @@
 ### Project Specific ###
 /tmp/
-/src/main/java/org/dynapi/Testing.java
+/src/main/test/Testing.java
 
 # Package Files #
 *.jar
