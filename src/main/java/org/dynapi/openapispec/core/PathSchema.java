@@ -1,6 +1,7 @@
 package org.dynapi.openapispec.core;
 
 import lombok.NonNull;
+import org.dynapi.openapispec.core.objects.Parameter;
 import org.dynapi.openapispec.core.types.Schema;
 import org.json.JSONObject;
 
@@ -52,7 +53,7 @@ public class PathSchema implements OpenApiSpecAble {
      * adds a request-body (in e.g. POST or PUT)
      * @param body body schema
      */
-    public PathSchema body(@NonNull Schema<?> body) {
+    public PathSchema body(@NonNull Schema<?, ?> body) {
         return body(body, "application/json");
     }
 
@@ -61,7 +62,7 @@ public class PathSchema implements OpenApiSpecAble {
      * @param body body schema
      * @param contentType content-type of the body
      */
-    public PathSchema body(@NonNull Schema<?> body, String contentType) {
+    public PathSchema body(@NonNull Schema<?, ?> body, String contentType) {
         this.body = new JSONObject()
                 .put("content", new JSONObject()
                         .put(contentType, new JSONObject()
@@ -75,7 +76,7 @@ public class PathSchema implements OpenApiSpecAble {
      * @param statusCode http-status-code
      * @param response response-schema
      */
-    public PathSchema addResponse(int statusCode, @NonNull Schema<?> response) {
+    public PathSchema addResponse(int statusCode, @NonNull Schema<?, ?> response) {
         return addResponse(statusCode, response, "application/json");
     }
 
@@ -84,7 +85,7 @@ public class PathSchema implements OpenApiSpecAble {
      * @param response response-schema
      * @param contentType content-type of the response
      */
-    public PathSchema addResponse(int statusCode, @NonNull Schema<?> response, @NonNull String contentType) {
+    public PathSchema addResponse(int statusCode, @NonNull Schema<?, ?> response, @NonNull String contentType) {
         String code = String.valueOf(statusCode);
         if (responses.has(code)) {  // this code already exists. add addition content-type for the response
             responses.getJSONObject(code).getJSONObject("content")

@@ -1,23 +1,28 @@
 package org.dynapi.openapispec;
 
-import lombok.Builder;
 import lombok.NonNull;
+import org.dynapi.openapispec.core.*;
 import org.dynapi.openapispec.core.Path;
+import org.dynapi.openapispec.core.objects.*;
+import org.dynapi.openapispec.core.types.Schema;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 public class OpenApiSpecBuilder {
-    protected final Meta meta;
+    protected final Info info;
+    protected String logo = null;
     protected final Map<String, String> tagInfos = new HashMap<>();
     protected final List<Path> paths = new ArrayList<>();
     protected final List<JSONObject> servers = new ArrayList<>();
+    protected final JSONObject components = new JSONObject();
 
-    public OpenApiSpecBuilder(Meta meta) {
-        this.meta = meta;
+    public OpenApiSpecBuilder(Info info) {
+        this.info = info;
     }
 
     protected String getFormattedDescription() {
@@ -37,12 +42,12 @@ public class OpenApiSpecBuilder {
             description.append(String.format("**Type:** %s\n", error.getClass().getSimpleName()));
             if (error.getMessage() != null)
                 description.append(String.format("**Detail:** %s\n\n", error.getMessage()));
-            if (meta.description != null)
+            if (info.description != null)
                 description.append("# Description\n");
         }
 
-        if (meta.description != null)
-            description.append(String.format("%s\n", meta.description));
+        if (info.description != null)
+            description.append(String.format("%s\n", info.description));
 
         return description.toString();
     }
@@ -54,14 +59,18 @@ public class OpenApiSpecBuilder {
     public JSONObject build() {
         JSONObject spec = new JSONObject()
                 .put("openapi", "3.0.0")
-                .put("info", new JSONObject()
-                        .put("title", meta.title)
-                        .put("version", meta.version)
-                        .put("description", getFormattedDescription())
+                .put("info", Info.builder()
+                        .title(info.title)
+                        .version(info.version)
+                        .description(getFormattedDescription())
+                        .license(info.license)
+                        .contact(info.contact)
+                        .termsOfServiceUrl(info.termsOfServiceUrl)
+                        .build().getOpenApiSpec()
                 );
-        if (meta.logo != null)
+        if (logo != null)
             spec.put("x-logo", new JSONObject()
-                    .put("url", meta.logo)
+                    .put("url", logo)
             );
 
         if (!servers.isEmpty())
@@ -82,6 +91,9 @@ public class OpenApiSpecBuilder {
         }
         spec.put("tags", tags);
 
+        if (!components.isEmpty())
+            spec.put("components", components);
+
         return spec;
     }
 
@@ -93,14 +105,15 @@ public class OpenApiSpecBuilder {
     public JSONObject build(Throwable error) {
         JSONObject spec = new JSONObject()
                 .put("openapi", "3.0.0")
-                .put("info", new JSONObject()
-                        .put("title", meta.title)
-                        .put("version", meta.version)
-                        .put("description", getFormattedDescription(error))
+                .put("info", Info.builder()
+                        .title(info.title)
+                        .version(info.version)
+                        .description(getFormattedDescription(error))
+                        .build().getOpenApiSpec()
                 );
-        if (meta.logo != null)
+        if (logo != null)
             spec.put("x-logo", new JSONObject()
-                    .put("url", meta.logo)
+                    .put("url", logo)
             );
         return spec;
     }
@@ -108,6 +121,11 @@ public class OpenApiSpecBuilder {
     @Override
     public String toString() {
         return build().toString();
+    }
+
+    public OpenApiSpecBuilder logo(String logo) {
+        this.logo = logo;
+        return this;
     }
 
     /**
@@ -149,11 +167,34 @@ public class OpenApiSpecBuilder {
         return this;
     }
 
-    @Builder(toBuilder = true)
-    public static class Meta {
-        public final String title;
-        public final String version;
-        public final String description;
-        public final String logo;
+    public OpenApiSpecBuilder registerRefSchema(@NonNull String id, Schema<?, ?> schema) {
+        return registerRef(ComponentType.SCHEMA, id, schema);
+    }
+
+    public OpenApiSpecBuilder registerRefParameter(@NonNull String id, Parameter parameter) {
+        return registerRef(ComponentType.PARAMETER, id, parameter);
+    }
+
+    public OpenApiSpecBuilder registerRefRequestBody(@NonNull String id, RequestBody requestBody) {
+        return registerRef(ComponentType.REQUEST_BODY, id, requestBody);
+    }
+
+    public OpenApiSpecBuilder registerRefResponse(@NonNull String id, Response response) {
+        return registerRef(ComponentType.RESPONSE, id, response);
+    }
+
+    public OpenApiSpecBuilder registerRefExample(@NonNull String id, Example example) {
+        return registerRef(ComponentType.EXAMPLE, id, example);
+    }
+
+    public OpenApiSpecBuilder registerRef(@NonNull ComponentType type, @NonNull String id, OpenApiSpecAble value) {
+        return registerRef(type, id, value.getOpenApiSpec());
+    }
+
+    public OpenApiSpecBuilder registerRef(@NonNull ComponentType type, @NonNull String id, JSONObject value) {
+        if (!components.has(type.value))
+            components.put(type.value, new JSONObject());
+        components.getJSONObject(type.value).put(id, value);
+        return this;
     }
 }

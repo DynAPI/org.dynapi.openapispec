@@ -95,7 +95,7 @@ public class Path implements OpenApiSpecAble {
             spec.put("externalDocs", externalDocs);
 
         for (var entry : methods.entrySet()) {
-            spec.put(entry.getKey().toString(), entry.getValue().getOpenApiSpec());
+            spec.put(entry.getKey().value, entry.getValue().getOpenApiSpec());
         }
         return spec;
     }
