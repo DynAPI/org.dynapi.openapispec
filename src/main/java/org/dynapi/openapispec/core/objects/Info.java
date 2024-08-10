@@ -10,12 +10,18 @@ import org.json.JSONObject;
 @ToString
 @Builder(toBuilder = true)
 public class Info implements OpenApiSpecAble {
+    /** The title of the API. */
     @NonNull
     public final String title;
+    /** A short description of the API. CommonMark syntax MAY be used for rich text representation. */
     public final String description;
+    /** A URL to the Terms of Service for the API. MUST be in the format of a URL. */
     public final String termsOfServiceUrl;
+    /** The contact information for the exposed API. */
     public final Contact contact;
+    /** The license information for the exposed API. */
     public final License license;
+    /** The version of the OpenAPI document (which is distinct from the OpenAPI Specification version or the API implementation version). */
     @NonNull
     public final String version;
 
