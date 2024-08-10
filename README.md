@@ -13,23 +13,25 @@ import org.json.JSONObject;
 
 public class Example {
     public static void main(String[] args) {
-        OpenApiSpecBuilder.Meta meta = OpenApiSpecBuilder.Meta.builder()
+        Info info = Info.builder()
                 .title("MyAPI")
                 .description("My API")
                 .version("1.0.0")
-                .logo("/assets/logo.png")
                 .build();
-        OpenApiSpecBuilder spec = new OpenApiSpecBuilder(meta);
+        OpenApiSpecBuilder spec = new OpenApiSpecBuilder(info);
+        spec.logo("/assets/logo.png");
         spec.addPath(new Path("/hello/<name>")
-                .addMethod("GET", new PathSchema()
-                        .addPathParameter(Parameter.builder()
+                .addMethod(OperationType.GET, new PathSchema()
+                        .addParameter(Parameter.builder()
+                                .in(Parameter.In.PATH)
                                 .name("name")
                                 .description("Person to greet")
                                 .schema(new TString())
                                 .build()
                         )
                         .addResponse(200, new TString()
-                                .example("Hello World")
+                                .addExample("World", "Hello World")
+                                .addExample("User", "Hello User")
                         )
                         .addResponse(500, new TObject()
                                 .addProperty("error", new TString()
