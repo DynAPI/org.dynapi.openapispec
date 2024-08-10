@@ -1,14 +1,15 @@
 package org.dynapi.openapispec.core;
 
-import lombok.NonNull;
+import lombok.*;
 import org.dynapi.openapispec.core.objects.Parameter;
-import org.dynapi.openapispec.core.objects.RequestBody;
 import org.dynapi.openapispec.core.types.Schema;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString
+@EqualsAndHashCode
 public class PathSchema implements OpenApiSpecAble {
     private String summary = null;
     private final List<String> tags = new ArrayList<>();

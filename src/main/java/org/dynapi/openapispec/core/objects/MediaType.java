@@ -1,8 +1,6 @@
 package org.dynapi.openapispec.core.objects;
 
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.dynapi.openapispec.core.Utils;
 import org.dynapi.openapispec.core.types.Schema;
@@ -10,8 +8,10 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
+@With
 @ToString
-@Builder
+@EqualsAndHashCode
+@Builder(toBuilder = true)
 public class MediaType implements OpenApiSpecAble {
     /** The schema defining the content of the request, response, or parameter. */
     @NonNull

@@ -1,7 +1,6 @@
 package org.dynapi.openapispec.core.types;
 
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -10,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class TArray extends Schema<TArray, Object[]> {
     private final List<Schema<?, ?>> types = new ArrayList<>();
 

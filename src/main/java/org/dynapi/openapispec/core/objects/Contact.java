@@ -1,11 +1,12 @@
 package org.dynapi.openapispec.core.objects;
 
-import lombok.Builder;
-import lombok.ToString;
+import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.json.JSONObject;
 
+@With
 @ToString
+@EqualsAndHashCode
 @Builder(toBuilder = true)
 public class Contact implements OpenApiSpecAble {
     /** The identifying name of the contact person/organization. */

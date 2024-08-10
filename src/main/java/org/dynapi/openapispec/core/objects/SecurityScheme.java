@@ -1,12 +1,12 @@
 package org.dynapi.openapispec.core.objects;
 
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.json.JSONObject;
 
+@With
 @ToString
+@EqualsAndHashCode
 @Builder(toBuilder = true)
 public class SecurityScheme implements OpenApiSpecAble {
     /** The type of the security scheme. Valid values are {@code "apiKey"}, {@code "http"}, {@code "oauth2"}, {@code "openIdConnect"}. */

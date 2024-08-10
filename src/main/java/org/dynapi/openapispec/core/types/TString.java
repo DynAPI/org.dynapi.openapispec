@@ -1,12 +1,12 @@
 package org.dynapi.openapispec.core.types;
 
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 import org.json.JSONObject;
 
 import java.util.regex.Pattern;
 
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class TString extends Schema<TString, String> {
     public TString() {
         super();

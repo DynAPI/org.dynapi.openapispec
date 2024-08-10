@@ -1,8 +1,6 @@
 package org.dynapi.openapispec.core.objects;
 
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.dynapi.openapispec.core.Utils;
 import org.dynapi.openapispec.core.types.Schema;
@@ -10,8 +8,10 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
-@Builder
+@With
 @ToString
+@EqualsAndHashCode
+@Builder(toBuilder = true)
 public class Parameter implements OpenApiSpecAble {
     /**
      * The name of the parameter. Parameter names are case-sensitive.

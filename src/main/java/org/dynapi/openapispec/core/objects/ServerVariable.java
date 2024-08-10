@@ -1,13 +1,14 @@
 package org.dynapi.openapispec.core.objects;
 
-import lombok.Builder;
-import lombok.ToString;
+import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.json.JSONObject;
 
 import java.util.List;
 
+@With
 @ToString
+@EqualsAndHashCode
 @Builder(toBuilder = true)
 public class ServerVariable implements OpenApiSpecAble {
     /** An enumeration of string values to be used if the substitution options are from a limited set. The array SHOULD NOT be empty. */

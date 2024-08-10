@@ -1,8 +1,6 @@
 package org.dynapi.openapispec.core.objects;
 
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.dynapi.openapispec.core.Utils;
 import org.json.JSONObject;
@@ -10,7 +8,9 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.Map;
 
+@With
 @ToString
+@EqualsAndHashCode
 @Builder(toBuilder = true)
 public class Operation implements OpenApiSpecAble {
     /** A list of tags for API documentation control.

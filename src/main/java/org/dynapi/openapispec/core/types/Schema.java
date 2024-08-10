@@ -1,7 +1,6 @@
 package org.dynapi.openapispec.core.types;
 
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ToString
+@EqualsAndHashCode
 @SuppressWarnings("unchecked")
 public abstract class Schema<THIS extends Schema<THIS, ?>, TYPE> implements OpenApiSpecAble {
     protected final Map<String, Object> options;

@@ -1,14 +1,13 @@
 package org.dynapi.openapispec.core;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @ToString
+@EqualsAndHashCode
 public class Path implements OpenApiSpecAble {
     @Getter
     private final String path;

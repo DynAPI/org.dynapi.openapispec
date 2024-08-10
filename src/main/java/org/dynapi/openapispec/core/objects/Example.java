@@ -1,13 +1,14 @@
 package org.dynapi.openapispec.core.objects;
 
-import lombok.Builder;
-import lombok.ToString;
+import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.dynapi.openapispec.core.Utils;
 import org.dynapi.openapispec.core.types.Schema;
 import org.json.JSONObject;
 
+@With
 @ToString
+@EqualsAndHashCode
 @Builder(toBuilder = true)
 public class Example implements OpenApiSpecAble {
     /** Short description for the example. */

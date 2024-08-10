@@ -1,15 +1,15 @@
 package org.dynapi.openapispec.core.objects;
 
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
 
+@With
 @ToString
+@EqualsAndHashCode
 @Builder(toBuilder = true)
 public class OpenApi implements OpenApiSpecAble {
     /** This string MUST be the semantic version number of the OpenAPI Specification version that the OpenAPI document uses.

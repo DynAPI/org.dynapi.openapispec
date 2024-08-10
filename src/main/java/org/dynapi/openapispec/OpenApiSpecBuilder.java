@@ -5,7 +5,6 @@ import org.dynapi.openapispec.core.*;
 import org.dynapi.openapispec.core.Path;
 import org.dynapi.openapispec.core.objects.*;
 import org.dynapi.openapispec.core.types.Schema;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.DateFormat;

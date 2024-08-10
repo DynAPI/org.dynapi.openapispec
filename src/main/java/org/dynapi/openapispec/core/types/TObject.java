@@ -1,7 +1,6 @@
 package org.dynapi.openapispec.core.types;
 
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -10,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class TObject extends Schema<TObject, JSONObject> {
     private final Map<String, Schema<?, ?>> properties = new HashMap<>();
 

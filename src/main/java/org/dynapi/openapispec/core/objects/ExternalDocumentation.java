@@ -1,12 +1,12 @@
 package org.dynapi.openapispec.core.objects;
 
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.json.JSONObject;
 
+@With
 @ToString
+@EqualsAndHashCode
 @Builder(toBuilder = true)
 public class ExternalDocumentation implements OpenApiSpecAble {
     /** A short description of the target documentation. CommonMark syntax MAY be used for rich text representation. */

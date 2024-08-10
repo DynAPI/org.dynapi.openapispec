@@ -1,7 +1,6 @@
 package org.dynapi.openapispec.core.objects;
 
-import lombok.Builder;
-import lombok.ToString;
+import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.dynapi.openapispec.core.Utils;
 import org.dynapi.openapispec.core.types.Schema;
@@ -9,7 +8,9 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
+@With
 @ToString
+@EqualsAndHashCode
 @Builder(toBuilder = true)
 public class Components implements OpenApiSpecAble {
     /** An object to hold reusable {@code Schema} Objects. */

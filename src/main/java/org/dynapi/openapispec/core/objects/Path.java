@@ -1,14 +1,18 @@
 package org.dynapi.openapispec.core.objects;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.With;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.dynapi.openapispec.core.Utils;
 import org.json.JSONObject;
 
 import java.util.List;
 
+@With
 @ToString
+@EqualsAndHashCode
 @Builder(toBuilder = true)
 public class Path implements OpenApiSpecAble {
     /** An optional, string summary, intended to apply to all operations in this path. */

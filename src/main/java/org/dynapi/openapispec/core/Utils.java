@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Utility methods that are used throughout the project
+ */
 public class Utils {
     private final static Map<Integer, String> code2text = new HashMap<>();
 
