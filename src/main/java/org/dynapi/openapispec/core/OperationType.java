@@ -1,6 +1,6 @@
 package org.dynapi.openapispec.core;
 
-public enum Operation {
+public enum OperationType {
     GET("get"),
     POST("post"),
     PUT("put"),
@@ -13,7 +13,7 @@ public enum Operation {
 
     public final String value;
 
-    Operation(String value) {
+    OperationType(String value) {
         this.value = value;
     }
 }

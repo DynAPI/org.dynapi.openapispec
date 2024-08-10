@@ -56,7 +56,7 @@ public class Path implements OpenApiSpecAble {
      * @param operation HTTP-Method
      * @param schema path-schema
      */
-    public Path addMethod(@NonNull Operation operation, @NonNull PathSchema schema) {
+    public Path addMethod(@NonNull OperationType operation, @NonNull PathSchema schema) {
         methods.put(operation.value, schema);
         return this;
     }
