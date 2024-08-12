@@ -1,5 +1,6 @@
 package org.dynapi.openapispec.core;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -32,40 +33,51 @@ public class Utils {
     /**
      * returns null or openapi-spec
      * @param specAble object to get the OpenApi-Spec from
-     * @return {@code OpenApiSpecAble.getOpenApiSpec() result} or null
+     * @return {@link OpenApiSpecAble#getOpenApiSpec() result} or null
      */
-    public static<V extends OpenApiSpecAble> JSONObject getOpenApiSpec(V specAble) {
+    public static <V extends OpenApiSpecAble> JSONObject getOpenApiSpec(V specAble) {
         return specAble == null ? null : specAble.getOpenApiSpec();
     }
 
     /**
-     * maps {@code OpenApiSpecAble} values of the array
-     * @param array array
-     * @return list without {@code OpenApiSpecAble}
+     * maps {@link OpenApiSpecAble} values of the list
+     * @param list list of the elements to transform
+     * @return list without {@link OpenApiSpecAble}
      */
-    public static<V extends OpenApiSpecAble> List<JSONObject> mapOpenApiSpecAble(V[] array) {
-        return mapOpenApiSpecAble(List.of(array));
-    }
-
-    /**
-     * maps {@code OpenApiSpecAble} values of the list
-     * @param list list
-     * @return list without {@code OpenApiSpecAble}
-     */
-    public static<V extends OpenApiSpecAble> List<JSONObject> mapOpenApiSpecAble(List<V> list) {
-        if (list == null) return null;
+    public static <V extends OpenApiSpecAble> List<JSONObject> mapOpenApiSpecAble(List<V> list) {
+        if (list == null || list.isEmpty()) return null;
         return list.stream().map(Utils::getOpenApiSpec).toList();
     }
 
     /**
-     * maps the values of a map to the {@code OpenApiSpecAble.getOpenApiSpec()} result
-     * @param map map to transform
-     * @return map without {@code OpenApiSpecAble}
+     * like {@link Utils#mapOpenApiSpecAble(Map)} but doesn't return an empty {@link JSONArray} if null
+     * @param list list of the elements to transform
+     * @return list without {@link OpenApiSpecAble}
      */
-    public static<V extends OpenApiSpecAble> Map<String, JSONObject> mapOpenApiSpecAble(Map<String, V> map) {
-        if (map == null) return null;
+    public static <V extends OpenApiSpecAble> JSONArray mapOpenApiSpecAble2Json(List<V> list) {
+        var result = mapOpenApiSpecAble(list);
+        return result == null ? null : new JSONArray(result);
+    }
+
+    /**
+     * maps the values of a map to the {@link OpenApiSpecAble#getOpenApiSpec()} result
+     * @param map map to transform
+     * @return map without {@link OpenApiSpecAble}
+     */
+    public static <V extends OpenApiSpecAble> Map<String, JSONObject> mapOpenApiSpecAble(Map<String, V> map) {
+        if (map == null || map.isEmpty()) return null;
         return map.entrySet()
                 .stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, e -> getOpenApiSpec(e.getValue())));
+    }
+
+    /**
+     * like {@link Utils#mapOpenApiSpecAble(Map)} but doesn't return an empty {@link JSONObject} if null
+     * @param map map to transform
+     * @return map without {@link OpenApiSpecAble}
+     */
+    public static <V extends OpenApiSpecAble> JSONObject mapOpenApiSpecAble2Json(Map<String, V> map) {
+        var result = mapOpenApiSpecAble(map);
+        return result == null ? null : new JSONObject(result);
     }
 }
