@@ -52,7 +52,7 @@ public class Operation implements OpenApiSpecAble {
      * To make security optional, an empty security requirement ({@code {}}) can be included in the array.
      * This definition overrides any declared top-level security.
      * To remove a top-level security declaration, an empty array can be used. */
-    public final Map<String, String[]>[] security;
+    public final List<Map<String, List<String>>> security;
     /** An alternative server array to service this operation.
      * If an alternative server object is specified at the Path Item Object or Root level, it will be overridden by this value. */
     public final List<Server> servers;
@@ -65,11 +65,11 @@ public class Operation implements OpenApiSpecAble {
                 .put("description", description)
                 .put("externalDocs", Utils.getOpenApiSpec(externalDocs))
                 .put("operationId", operationId)
-                .put("parameters", Utils.mapOpenApiSpecAble(parameters))
+                .put("parameters", Utils.mapOpenApiSpecAble2Json(parameters))
                 .put("requestBody", Utils.getOpenApiSpec(requestBody))
-                .put("responses", Utils.mapOpenApiSpecAble(responses))
+                .put("responses", Utils.mapOpenApiSpecAble2Json(responses))
                 .put("deprecated", deprecated)
                 .put("security", security)
-                .put("servers", Utils.mapOpenApiSpecAble(servers));
+                .put("servers", Utils.mapOpenApiSpecAble2Json(servers));
     }
 }

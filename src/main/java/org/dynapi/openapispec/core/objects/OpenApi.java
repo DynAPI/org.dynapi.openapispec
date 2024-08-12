@@ -2,6 +2,7 @@ package org.dynapi.openapispec.core.objects;
 
 import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
+import org.dynapi.openapispec.core.Utils;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class OpenApi implements OpenApiSpecAble {
      * The list of values includes alternative security requirement objects that can be used.
      * Only one of the security requirement objects need to be satisfied to authorize a request.
      * Individual operations can override this definition. To make security optional, an empty security requirement ({@code {}}) can be included in the array. */
-    public final Map<String, String[]>[] security;
+    public final List<Map<String, List<String>>> security;
     /** A list of tags used by the specification with additional metadata.
      * The order of the tags can be used to reflect on their order by the parsing tools.
      * Not all tags that are used by the Operation Object must be declared.
@@ -45,12 +46,12 @@ public class OpenApi implements OpenApiSpecAble {
     public JSONObject getOpenApiSpec() {
         return new JSONObject()
                 .put("openapiVersion", openapiVersion)
-                .put("info", info)
-                .put("servers", servers)
-                .put("paths", paths)
-                .put("components", components)
+                .put("info", Utils.getOpenApiSpec(info))
+                .put("servers", Utils.mapOpenApiSpecAble2Json(servers))
+                .put("paths", Utils.mapOpenApiSpecAble2Json(paths))
+                .put("components", Utils.getOpenApiSpec(components))
                 .put("security", security)
-                .put("tags", tags)
-                .put("externalDocs", externalDocumentation);
+                .put("tags", Utils.mapOpenApiSpecAble2Json(tags))
+                .put("externalDocs", Utils.getOpenApiSpec(externalDocumentation));
     }
 }

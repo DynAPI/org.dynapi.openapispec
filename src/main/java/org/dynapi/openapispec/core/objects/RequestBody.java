@@ -26,7 +26,7 @@ public class RequestBody implements OpenApiSpecAble {
     public JSONObject getOpenApiSpec() {
         return new JSONObject()
                 .put("description", description)
-                .put("content", Utils.mapOpenApiSpecAble(content))
+                .put("content", Utils.mapOpenApiSpecAble2Json(content))
                 .put("required", required);
     }
 }

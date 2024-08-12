@@ -35,13 +35,13 @@ public class Components implements OpenApiSpecAble {
     @Override
     public JSONObject getOpenApiSpec() {
         return new JSONObject()
-                .put("schemas", Utils.mapOpenApiSpecAble(schemas))
-                .put("responses", Utils.mapOpenApiSpecAble(responses))
-                .put("parameters", Utils.mapOpenApiSpecAble(parameters))
-                .put("examples", Utils.mapOpenApiSpecAble(examples))
-                .put("requestBodies", Utils.mapOpenApiSpecAble(requestBodies))
-                .put("headers", Utils.mapOpenApiSpecAble(headers))
-                .put("securitySchemes", Utils.mapOpenApiSpecAble(securitySchemes));
+                .put("schemas", Utils.mapOpenApiSpecAble2Json(schemas))
+                .put("responses", Utils.mapOpenApiSpecAble2Json(responses))
+                .put("parameters", Utils.mapOpenApiSpecAble2Json(parameters))
+                .put("examples", Utils.mapOpenApiSpecAble2Json(examples))
+                .put("requestBodies", Utils.mapOpenApiSpecAble2Json(requestBodies))
+                .put("headers", Utils.mapOpenApiSpecAble2Json(headers))
+                .put("securitySchemes", Utils.mapOpenApiSpecAble2Json(securitySchemes));
 //                .put("links", Utils.mapOpenApiSpecAble(links));
 //                .put("callbacks", Utils.mapOpenApiSpecAble(callbacks));
     }

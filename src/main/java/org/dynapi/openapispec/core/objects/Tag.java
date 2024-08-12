@@ -12,11 +12,11 @@ import org.json.JSONObject;
 public class Tag implements OpenApiSpecAble {
     /** The name of the tag. */
     @NonNull
-    private final String name;
+    public final String name;
     /** A short description for the tag. CommonMark syntax MAY be used for rich text representation. */
-    private final String description;
+    public final String description;
     /** Additional external documentation for this tag. */
-    private final ExternalDocumentation externalDocs;
+    public final ExternalDocumentation externalDocs;
 
     @Override
     public JSONObject getOpenApiSpec() {

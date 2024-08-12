@@ -10,10 +10,10 @@ import org.json.JSONObject;
 @Builder(toBuilder = true)
 public class ExternalDocumentation implements OpenApiSpecAble {
     /** A short description of the target documentation. CommonMark syntax MAY be used for rich text representation. */
-    private final String description;
+    public final String description;
     /** The URL for the target documentation. Value MUST be in the format of a URL. */
     @NonNull
-    private final String url;
+    public final String url;
 
     @Override
     public JSONObject getOpenApiSpec() {

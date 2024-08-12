@@ -28,6 +28,6 @@ public class Server implements OpenApiSpecAble {
         return new JSONObject()
                 .put("url", url)
                 .put("description", description)
-                .put("variables", Utils.mapOpenApiSpecAble(variables));
+                .put("variables", Utils.mapOpenApiSpecAble2Json(variables));
     }
 }

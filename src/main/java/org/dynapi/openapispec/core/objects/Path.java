@@ -58,7 +58,7 @@ public class Path implements OpenApiSpecAble {
                 .put("head", Utils.getOpenApiSpec(head))
                 .put("patch", Utils.getOpenApiSpec(patch))
                 .put("trace", Utils.getOpenApiSpec(trace))
-                .put("servers", Utils.mapOpenApiSpecAble(servers))
-                .put("parameters", Utils.mapOpenApiSpecAble(parameters));
+                .put("servers", Utils.mapOpenApiSpecAble2Json(servers))
+                .put("parameters", Utils.mapOpenApiSpecAble2Json(parameters));
     }
 }
