@@ -2,7 +2,6 @@ package org.dynapi.openapispec;
 
 import lombok.NonNull;
 import org.dynapi.openapispec.core.*;
-import org.dynapi.openapispec.core.Path;
 import org.dynapi.openapispec.core.objects.*;
 import org.dynapi.openapispec.core.types.Schema;
 import org.json.JSONObject;
@@ -16,7 +15,7 @@ public class OpenApiSpecBuilder {
     protected final Info info;
     protected String logo = null;
     protected final List<Tag> tags = new ArrayList<>();
-    protected final List<Path> paths = new ArrayList<>();
+    protected final Map<String, Path> paths = new HashMap<>();
     protected final List<Server> servers = new ArrayList<>();
     protected final JSONObject components = new JSONObject();
 
@@ -68,7 +67,7 @@ public class OpenApiSpecBuilder {
                         .build().getOpenApiSpec()
                 );
         if (logo != null)
-            spec.put("x-logo", new JSONObject()
+            spec.getJSONObject("info").put("x-logo", new JSONObject()
                     .put("url", logo)
             );
 
@@ -76,8 +75,8 @@ public class OpenApiSpecBuilder {
             spec.put("servers", Utils.mapOpenApiSpecAble(servers));
 
         JSONObject paths = new JSONObject();
-        for (Path path : this.paths) {
-            paths.put(path.getPath(), path.getOpenApiSpec());
+        for (var entry : this.paths.entrySet()) {
+            paths.put(entry.getKey(), entry.getValue().getOpenApiSpec());
         }
         spec.put("paths", paths);
 
@@ -129,8 +128,8 @@ public class OpenApiSpecBuilder {
      * adds {@code path} to the list of endpoints
      * @param path path to add
      */
-    public OpenApiSpecBuilder addPath(@NonNull Path path) {
-        paths.add(path);
+    public OpenApiSpecBuilder addPath(@NonNull String location, @NonNull Path path) {
+        paths.put(location, path);
         return this;
     }
 
