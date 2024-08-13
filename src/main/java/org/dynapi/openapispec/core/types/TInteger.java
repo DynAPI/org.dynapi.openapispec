@@ -5,32 +5,32 @@ import org.json.JSONObject;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class TInteger extends Schema<TInteger, Integer> {
-    public TInteger gte(int value) {
+public class TInteger extends Schema<TInteger, Long> {
+    public TInteger gte(long value) {
         options.put("minimum", value);
         options.put("exclusiveMinimum", false);
         return this;
     }
 
-    public TInteger gt(int value) {
+    public TInteger gt(long value) {
         options.put("minimum", value);
         options.put("exclusiveMinimum", true);
         return this;
     }
 
-    public TInteger lte(int value) {
+    public TInteger lte(long value) {
         options.put("maximum", value);
         options.put("exclusiveMaximum", false);
         return this;
     }
 
-    public TInteger lt(int value) {
+    public TInteger lt(long value) {
         options.put("maximum", value);
         options.put("exclusiveMaxmimum", true);
         return this;
     }
 
-    public TInteger multipleOf(int value) {
+    public TInteger multipleOf(long value) {
         options.put("multipleOf", value);
         return this;
     }

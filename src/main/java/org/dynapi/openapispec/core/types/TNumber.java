@@ -6,25 +6,25 @@ import org.json.JSONObject;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class TNumber extends Schema<TNumber, Double> {
-    public TNumber gte(int value) {
+    public TNumber gte(double value) {
         options.put("minimum", value);
         options.put("exclusiveMinimum", false);
         return this;
     }
 
-    public TNumber gt(int value) {
+    public TNumber gt(double value) {
         options.put("minimum", value);
         options.put("exclusiveMinimum", true);
         return this;
     }
 
-    public TNumber lte(int value) {
+    public TNumber lte(double value) {
         options.put("maximum", value);
         options.put("exclusiveMaximum", false);
         return this;
     }
 
-    public TNumber lt(int value) {
+    public TNumber lt(double value) {
         options.put("maximum", value);
         options.put("exclusiveMaximum", true);
         return this;
