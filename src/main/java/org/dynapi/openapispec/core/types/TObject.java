@@ -17,7 +17,8 @@ public class TObject extends Schema<TObject, JSONObject> {
      * @param properties marks properties that are required
      */
     public TObject required(@NonNull String... properties) {
-        ((JSONArray) options.getOrDefault("required", new JSONArray())).putAll(properties);
+        if (!options.containsKey("required")) options.put("required", new JSONArray());
+        ((JSONArray) options.get("required")).putAll(properties);
         return this;
     }
 
