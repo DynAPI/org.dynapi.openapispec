@@ -14,7 +14,6 @@ public class TArray extends Schema<TArray, Object[]> {
     private final List<Schema<?, ?>> types = new ArrayList<>();
 
     public TArray(Schema<?, ?>... types) {
-        super();
         this.types.addAll(Arrays.asList(types));
     }
 
@@ -70,7 +69,7 @@ public class TArray extends Schema<TArray, Object[]> {
         if (types.isEmpty()) {
             finalizedItems = new JSONObject();
         } else if (types.size() == 1) {
-            finalizedItems = types.get(0).finalized();
+            finalizedItems = types.getFirst().finalized();
         } else {
             finalizedItems = new JSONObject()
                     .put("oneOf", new JSONArray(types.stream().map(Schema::finalized).toList()));

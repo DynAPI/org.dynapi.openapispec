@@ -13,10 +13,6 @@ import java.util.stream.Collectors;
 public class TObject extends Schema<TObject, JSONObject> {
     private final Map<String, Schema<?, ?>> properties = new HashMap<>();
 
-    public TObject() {
-        super();
-    }
-
     /**
      * @param properties marks properties that are required
      */

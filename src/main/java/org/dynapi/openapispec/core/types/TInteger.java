@@ -6,10 +6,6 @@ import org.json.JSONObject;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class TInteger extends Schema<TInteger, Integer> {
-    public TInteger() {
-        super();
-    }
-
     public TInteger gte(int value) {
         options.put("minimum", value);
         options.put("exclusiveMinimum", false);

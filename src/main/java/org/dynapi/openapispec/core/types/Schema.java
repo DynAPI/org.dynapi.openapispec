@@ -12,11 +12,7 @@ import java.util.Map;
 @EqualsAndHashCode
 @SuppressWarnings("unchecked")
 public abstract class Schema<THIS extends Schema<THIS, ?>, TYPE> implements OpenApiSpecAble {
-    protected final Map<String, Object> options;
-
-    public Schema() {
-        this.options = new HashMap<>();
-    }
+    protected final Map<String, Object> options = new HashMap<>();
 
     protected THIS getThis() { return (THIS) this; }
 

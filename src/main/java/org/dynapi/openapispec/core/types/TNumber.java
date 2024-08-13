@@ -6,10 +6,6 @@ import org.json.JSONObject;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class TNumber extends Schema<TNumber, Double> {
-    public TNumber() {
-        super();
-    }
-
     public TNumber gte(int value) {
         options.put("minimum", value);
         options.put("exclusiveMinimum", false);
@@ -30,7 +26,7 @@ public class TNumber extends Schema<TNumber, Double> {
 
     public TNumber lt(int value) {
         options.put("maximum", value);
-        options.put("exclusiveMaxmimum", true);
+        options.put("exclusiveMaximum", true);
         return this;
     }
 
