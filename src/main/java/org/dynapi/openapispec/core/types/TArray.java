@@ -69,7 +69,7 @@ public class TArray extends Schema<TArray, Object[]> {
         if (types.isEmpty()) {
             finalizedItems = new JSONObject();
         } else if (types.size() == 1) {
-            finalizedItems = types.getFirst().finalized();
+            finalizedItems = types.get(0).finalized();
         } else {
             finalizedItems = new JSONObject()
                     .put("oneOf", new JSONArray(types.stream().map(Schema::finalized).toList()));
