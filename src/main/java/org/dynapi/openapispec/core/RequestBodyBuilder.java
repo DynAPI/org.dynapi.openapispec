@@ -8,6 +8,9 @@ import org.dynapi.openapispec.core.types.Schema;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @see RequestBody
+ */
 @ToString
 @EqualsAndHashCode
 public class RequestBodyBuilder {

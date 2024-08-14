@@ -115,6 +115,10 @@ public class OpenApiSpecBuilder {
         return build().toString();
     }
 
+    public String toString(int indentFactor) {
+        return build().toString(indentFactor);
+    }
+
     /**
      * adds the x-logo attribute
      * @param logo path to the logo
@@ -127,6 +131,8 @@ public class OpenApiSpecBuilder {
     /**
      * adds {@code path} to the list of endpoints
      * @param path path to add
+     * @see Path
+     * @see PathBuilder
      */
     public OpenApiSpecBuilder addPath(@NonNull String location, @NonNull Path path) {
         paths.put(location, path);
@@ -136,6 +142,7 @@ public class OpenApiSpecBuilder {
     /**
      * adds a description to a tag that is referenced in some paths
      * @param tag tag name
+     * @see Tag
      */
     public OpenApiSpecBuilder addTag(@NonNull Tag tag) {
         tags.add(tag);
@@ -144,32 +151,74 @@ public class OpenApiSpecBuilder {
 
     /**
      * @param server server to add
+     * @see Server
+     * @see ServerBuilder
      */
     public OpenApiSpecBuilder addServer(@NonNull Server server) {
         servers.add(server);
         return this;
     }
 
+    /**
+     * @see Schema
+     * @see org.dynapi.openapispec.core.types.TRef
+     */
     public OpenApiSpecBuilder registerRefSchema(@NonNull String id, Schema<?, ?> schema) {
         return registerRef(ComponentType.SCHEMA, id, schema);
     }
 
-    public OpenApiSpecBuilder registerRefParameter(@NonNull String id, Parameter parameter) {
-        return registerRef(ComponentType.PARAMETER, id, parameter);
-    }
-
-    public OpenApiSpecBuilder registerRefRequestBody(@NonNull String id, RequestBody requestBody) {
-        return registerRef(ComponentType.REQUEST_BODY, id, requestBody);
-    }
-
+    /**
+     * @see Response
+     * @see Response.Ref
+     */
     public OpenApiSpecBuilder registerRefResponse(@NonNull String id, Response response) {
         return registerRef(ComponentType.RESPONSE, id, response);
     }
 
+    /**
+     * @see Parameter
+     * @see Parameter.Ref
+     */
+    public OpenApiSpecBuilder registerRefParameter(@NonNull String id, Parameter parameter) {
+        return registerRef(ComponentType.PARAMETER, id, parameter);
+    }
+
+    /**
+     * @see Example
+     * @see Example.Ref
+     */
     public OpenApiSpecBuilder registerRefExample(@NonNull String id, Example example) {
         return registerRef(ComponentType.EXAMPLE, id, example);
     }
 
+    /**
+     * @see RequestBody
+     * @see RequestBody.Ref
+     */
+    public OpenApiSpecBuilder registerRefRequestBody(@NonNull String id, RequestBody requestBody) {
+        return registerRef(ComponentType.REQUEST_BODY, id, requestBody);
+    }
+
+    /**
+     * @see Header
+     * @see Header.Ref
+     */
+    public OpenApiSpecBuilder registerRefHeader(@NonNull String id, Header header) {
+        return registerRef(ComponentType.HEADER, id, header);
+    }
+
+    /**
+     * @see SecurityScheme
+     * @see SecurityScheme.Ref
+     */
+    public OpenApiSpecBuilder registerRefSecurityScheme(@NonNull String id, SecurityScheme header) {
+        return registerRef(ComponentType.SECURITY_SCHEME, id, header);
+    }
+
+    /**
+     * @see OpenApiObjectRef
+     * @see ComponentType
+     */
     public OpenApiSpecBuilder registerRef(@NonNull ComponentType type, @NonNull String id, OpenApiSpecAble value) {
         return registerRef(type, id, value.getOpenApiSpec());
     }

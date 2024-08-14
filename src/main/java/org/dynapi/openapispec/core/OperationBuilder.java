@@ -2,14 +2,15 @@ package org.dynapi.openapispec.core;
 
 import lombok.*;
 import org.dynapi.openapispec.core.objects.*;
-import org.dynapi.openapispec.core.types.Schema;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @see Operation
+ */
 @ToString
 @EqualsAndHashCode
 public class OperationBuilder {

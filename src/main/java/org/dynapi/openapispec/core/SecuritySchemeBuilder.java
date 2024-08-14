@@ -1,8 +1,15 @@
 package org.dynapi.openapispec.core;
 
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import lombok.ToString;
 import org.dynapi.openapispec.core.objects.SecurityScheme;
 
+/**
+ * @see SecurityScheme
+ */
+@ToString
+@EqualsAndHashCode
 public class SecuritySchemeBuilder {
 
     public static SecurityScheme apiKey(@NonNull String in, @NonNull String headerName) {

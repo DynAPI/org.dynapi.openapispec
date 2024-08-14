@@ -9,6 +9,9 @@ import org.dynapi.openapispec.core.objects.ServerVariable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @see Server
+ */
 @ToString
 @EqualsAndHashCode
 public class ServerBuilder {

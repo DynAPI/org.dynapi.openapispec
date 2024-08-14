@@ -10,6 +10,9 @@ import org.dynapi.openapispec.core.types.Schema;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @see Response
+ */
 @ToString
 @EqualsAndHashCode
 public class ResponseBuilder {
