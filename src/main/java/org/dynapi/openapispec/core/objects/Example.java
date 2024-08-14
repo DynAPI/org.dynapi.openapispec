@@ -30,4 +30,27 @@ public class Example implements OpenApiSpecAble {
                 .put("value", value)
                 .put("externalValue", externalValueUrl);
     }
+
+    /**
+     * @see org.dynapi.openapispec.OpenApiSpecBuilder#registerRefExample(String, Example)
+     * @see org.dynapi.openapispec.core.objects.Example
+     */
+    @ToString
+    @EqualsAndHashCode(callSuper = true)
+    public static class Ref extends Example implements OpenApiObjectRef {
+        @NonNull
+        private final String ref;
+
+        public Ref(@NonNull String name) {
+            // just ignore these fields
+            super(null, null, null, null);
+            this.ref = name;
+        }
+
+        @Override
+        public JSONObject getOpenApiSpec() {
+            return new JSONObject()
+                    .put("$ref", "#/components/examples/" + ref);
+        }
+    }
 }

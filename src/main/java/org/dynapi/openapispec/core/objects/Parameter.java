@@ -74,4 +74,27 @@ public class Parameter implements OpenApiSpecAble {
             this.value = value;
         }
     }
+
+    /**
+     * @see org.dynapi.openapispec.OpenApiSpecBuilder#registerRefParameter(String, Parameter)
+     * @see org.dynapi.openapispec.core.objects.Parameter
+     */
+    @ToString
+    @EqualsAndHashCode(callSuper = true)
+    public static class Ref extends Parameter implements OpenApiObjectRef {
+        @NonNull
+        private final String ref;
+
+        public Ref(@NonNull String name) {
+            // just ignore these fields
+            super("", In.COOKIE, null, null, null, null, null, null);
+            this.ref = name;
+        }
+
+        @Override
+        public JSONObject getOpenApiSpec() {
+            return new JSONObject()
+                    .put("$ref", "#/components/parameters/" + ref);
+        }
+    }
 }

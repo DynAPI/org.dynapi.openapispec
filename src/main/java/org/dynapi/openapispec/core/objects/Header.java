@@ -45,4 +45,27 @@ public class Header implements OpenApiSpecAble {
                 .put("example", example)
                 .put("examples", Utils.mapOpenApiSpecAble2Json(examples));
     }
+
+    /**
+     * @see org.dynapi.openapispec.OpenApiSpecBuilder#registerRefHeader(String, Header)
+     * @see org.dynapi.openapispec.core.objects.Header
+     */
+    @ToString
+    @EqualsAndHashCode(callSuper = true)
+    public static class Ref extends Header implements OpenApiObjectRef {
+        @NonNull
+        private final String ref;
+
+        public Ref(@NonNull String name) {
+            // just ignore these fields
+            super(null, null, null, null, null, null);
+            this.ref = name;
+        }
+
+        @Override
+        public JSONObject getOpenApiSpec() {
+            return new JSONObject()
+                    .put("$ref", "#/components/responses/" + ref);
+        }
+    }
 }

@@ -34,4 +34,27 @@ public class Response implements OpenApiSpecAble {
                 .put("headers", Utils.mapOpenApiSpecAble2Json(headers))
                 .put("content", Utils.mapOpenApiSpecAble2Json(content));
     }
+
+    /**
+     * @see org.dynapi.openapispec.OpenApiSpecBuilder#registerRefResponse(String, Response)
+     * @see org.dynapi.openapispec.core.objects.Response
+     */
+    @ToString
+    @EqualsAndHashCode(callSuper = true)
+    public static class Ref extends Response implements OpenApiObjectRef {
+        @NonNull
+        private final String ref;
+
+        public Ref(@NonNull String name) {
+            // just ignore these fields
+            super("", null, null);
+            this.ref = name;
+        }
+
+        @Override
+        public JSONObject getOpenApiSpec() {
+            return new JSONObject()
+                    .put("$ref", "#/components/responses/" + ref);
+        }
+    }
 }

@@ -68,4 +68,27 @@ public class SecurityScheme implements OpenApiSpecAble {
             this.value = value;
         }
     }
+
+    /**
+     * @see org.dynapi.openapispec.OpenApiSpecBuilder#registerRefSecurityScheme(String, SecurityScheme)
+     * @see org.dynapi.openapispec.core.objects.SecurityScheme
+     */
+    @ToString
+    @EqualsAndHashCode(callSuper = true)
+    public static class Ref extends SecurityScheme implements OpenApiObjectRef {
+        @NonNull
+        private final String ref;
+
+        public Ref(@NonNull String name) {
+            // just ignore these fields
+            super(Type.HTTP, null, null, null, null, null, null);
+            this.ref = name;
+        }
+
+        @Override
+        public JSONObject getOpenApiSpec() {
+            return new JSONObject()
+                    .put("$ref", "#/components/examples/" + ref);
+        }
+    }
 }
