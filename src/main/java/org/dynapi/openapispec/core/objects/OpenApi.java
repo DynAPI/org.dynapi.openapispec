@@ -3,6 +3,7 @@ package org.dynapi.openapispec.core.objects;
 import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.dynapi.openapispec.core.Utils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class OpenApi implements OpenApiSpecAble {
      * The openapi field SHOULD be used by tooling specifications and clients to interpret the OpenAPI document.
      * This is not related to the API {@code info.version} string. */
     @NonNull
-    public final String openapiVersion;
+    public final String openapiVersion = "3.0.0";
     /** Provides metadata about the API. The metadata MAY be used by tooling as required. */
     @NonNull
     public final Info info;
@@ -45,12 +46,12 @@ public class OpenApi implements OpenApiSpecAble {
     @Override
     public JSONObject getOpenApiSpec() {
         return new JSONObject()
-                .put("openapiVersion", openapiVersion)
+                .put("openapi", openapiVersion)
                 .put("info", Utils.getOpenApiSpec(info))
                 .put("servers", Utils.mapOpenApiSpecAble2Json(servers))
                 .put("paths", Utils.mapOpenApiSpecAble2Json(paths))
                 .put("components", Utils.getOpenApiSpec(components))
-                .put("security", security)
+                .put("security", (security == null || security.isEmpty()) ? null : new JSONArray(security))
                 .put("tags", Utils.mapOpenApiSpecAble2Json(tags))
                 .put("externalDocs", Utils.getOpenApiSpec(externalDocumentation));
     }
