@@ -18,7 +18,7 @@ public class OpenApi implements OpenApiSpecAble {
      * The openapi field SHOULD be used by tooling specifications and clients to interpret the OpenAPI document.
      * This is not related to the API {@code info.version} string. */
     @NonNull
-    public final String openapiVersion = "3.0.0";
+    public final String openapiVersion = "3.1.0";
     /** Provides metadata about the API. The metadata MAY be used by tooling as required. */
     @NonNull
     public final Info info;
