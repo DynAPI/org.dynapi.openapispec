@@ -1,9 +1,6 @@
 package org.dynapi.openapispec.core.objects;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import lombok.With;
+import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.dynapi.openapispec.core.Utils;
 import org.json.JSONObject;
@@ -14,7 +11,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Builder(toBuilder = true)
-public class Path implements OpenApiSpecAble {
+public class PathItem implements OpenApiSpecAble {
     /** An optional, string summary, intended to apply to all operations in this path. */
     public final String summary;
     /** An optional, string description, intended to apply to all operations in this path.
@@ -60,5 +57,28 @@ public class Path implements OpenApiSpecAble {
                 .put("trace", Utils.getOpenApiSpec(trace))
                 .put("servers", Utils.mapOpenApiSpecAble2Json(servers))
                 .put("parameters", Utils.mapOpenApiSpecAble2Json(parameters));
+    }
+
+    /**
+     * @see org.dynapi.openapispec.OpenApiSpecBuilder#registerRefParameter(String, Parameter)
+     * @see org.dynapi.openapispec.core.objects.Parameter
+     */
+    @ToString
+    @EqualsAndHashCode(callSuper = true)
+    public static class Ref extends PathItem implements OpenApiObjectRef {
+        @NonNull
+        private final String ref;
+
+        public Ref(@NonNull String name) {
+            // just ignore these fields
+            super(null, null, null, null, null, null, null, null, null, null, null, null);
+            this.ref = name;
+        }
+
+        @Override
+        public JSONObject getOpenApiSpec() {
+            return new JSONObject()
+                    .put("$ref", "#/components/pathItems/" + ref);
+        }
     }
 }

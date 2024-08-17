@@ -14,7 +14,7 @@ public class OpenApiSpecBuilder {
     protected final Info info;
     protected String logo = null;
     protected final List<Tag> tags = new ArrayList<>();
-    protected final Map<String, Path> paths = new HashMap<>();
+    protected final Map<String, PathItem> paths = new HashMap<>();
     protected final List<Server> servers = new ArrayList<>();
     protected final Components components = new Components();
 
@@ -64,10 +64,10 @@ public class OpenApiSpecBuilder {
     /**
      * adds {@code path} to the list of endpoints
      * @param path path to add
-     * @see Path
+     * @see PathItem
      * @see PathBuilder
      */
-    public OpenApiSpecBuilder addPath(@NonNull String location, @NonNull Path path) {
+    public OpenApiSpecBuilder addPath(@NonNull String location, @NonNull PathItem path) {
         paths.put(location, path);
         return this;
     }
@@ -149,6 +149,22 @@ public class OpenApiSpecBuilder {
     }
 
     /**
+     * @see Link
+     * @see Link.Ref
+     */
+    public OpenApiSpecBuilder registerRefLink(@NonNull String id, Link link) {
+        return registerRef(ComponentType.LINK, id, link);
+    }
+
+    /**
+     * @see PathItem
+     * @see PathItem.Ref
+     */
+    public OpenApiSpecBuilder registerRefPath(@NonNull String id, PathItem pathItem) {
+        return registerRef(ComponentType.PATH, id, pathItem);
+    }
+
+    /**
      * @see OpenApiObjectRef
      * @see ComponentType
      */
@@ -161,6 +177,8 @@ public class OpenApiSpecBuilder {
             case ComponentType.RESPONSE -> components.responses.put(id, (Response) value);
             case ComponentType.REQUEST_BODY -> components.requestBodies.put(id, (RequestBody) value);
             case ComponentType.SECURITY_SCHEME -> components.securitySchemes.put(id, (SecurityScheme) value);
+            case ComponentType.LINK -> components.links.put(id, (Link) value);
+            case ComponentType.PATH -> components.pathItems.put(id, (PathItem) value);
             default -> throw new IllegalStateException("Unsupported value: " + type);
         }
         return this;

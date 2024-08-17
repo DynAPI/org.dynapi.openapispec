@@ -10,6 +10,7 @@ public enum ComponentType {
     EXAMPLE("examples"),
     LINK("links"),
     CALLBACK("callbacks"),
+    PATH("pathItems"),
     ;
 
     public final String value;

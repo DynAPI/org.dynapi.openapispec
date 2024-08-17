@@ -47,6 +47,9 @@ public class Parameter implements OpenApiSpecAble {
      * The examples field is mutually exclusive of the example field.
      * Furthermore, if referencing a schema that contains an example, the examples value SHALL override the example provided by the schema. */
     public final Map<String, Example> examples;
+    /** A map containing the representations for the parameter.
+     * The key is the media type and the value describes it. The map MUST only contain one entry. */
+    public final Map<String, MediaType> content;
 
     @Override
     public JSONObject getOpenApiSpec() {
@@ -87,7 +90,7 @@ public class Parameter implements OpenApiSpecAble {
 
         public Ref(@NonNull String name) {
             // just ignore these fields
-            super("", In.COOKIE, null, null, null, null, null, null);
+            super("", In.COOKIE, null, null, null, null, null, null, null);
             this.ref = name;
         }
 

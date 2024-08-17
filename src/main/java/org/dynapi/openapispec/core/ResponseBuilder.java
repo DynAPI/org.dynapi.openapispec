@@ -46,11 +46,25 @@ public class ResponseBuilder {
     }
 
     /**
+     * @param contentSchema media description
+     */
+    public ResponseBuilder addContent(Schema<?, ?> contentSchema) {
+        return addContent("application/json", contentSchema);
+    }
+
+    /**
      * @param mimetype media type or media type range
      * @param contentSchema media description
      */
     public ResponseBuilder addContent(String mimetype, Schema<?, ?> contentSchema) {
         return addContent(mimetype, MediaType.builder().schema(contentSchema).build());
+    }
+
+    /**
+     * @param content media description
+     */
+    public ResponseBuilder addContent(MediaType content) {
+        return addContent("application/json", content);
     }
 
     /**

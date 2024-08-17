@@ -80,4 +80,14 @@ public class Utils {
         Map<String, JSONObject> result = mapOpenApiSpecAble(map);
         return result == null ? null : new JSONObject(result);
     }
+
+//    public static JSONObject mapCallbacks(Map<String, Map<String, PathItem>> callbacks) {
+//        if (callbacks == null || callbacks.isEmpty()) return null;
+//        Map<String, Map<String, JSONObject>> result = callbacks.entrySet()
+//                .stream()
+//                .map(entry -> (Map.Entry<String, JSONObject>) new AbstractMap.SimpleEntry<>(entry.getKey(), Utils.mapOpenApiSpecAble2Json(entry.getValue())))
+//                .filter(entry -> entry.getValue() != null)
+//                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+//        return result.isEmpty() ? null : new JSONObject(result);
+//    }
 }

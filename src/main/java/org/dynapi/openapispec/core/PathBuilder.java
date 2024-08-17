@@ -3,7 +3,7 @@ package org.dynapi.openapispec.core;
 import lombok.*;
 import org.dynapi.openapispec.core.objects.Operation;
 import org.dynapi.openapispec.core.objects.Parameter;
-import org.dynapi.openapispec.core.objects.Path;
+import org.dynapi.openapispec.core.objects.PathItem;
 import org.dynapi.openapispec.core.objects.Server;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @see Path
+ * @see PathItem
  */
 @ToString
 @EqualsAndHashCode
@@ -64,8 +64,8 @@ public class PathBuilder {
         return this;
     }
 
-    public Path build() {
-        Path.PathBuilder builder = Path.builder()
+    public PathItem build() {
+        PathItem.PathItemBuilder builder = PathItem.builder()
                 .summary(summary)
                 .description(description)
                 .servers(servers)
