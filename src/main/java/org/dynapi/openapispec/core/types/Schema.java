@@ -49,41 +49,43 @@ public abstract class Schema<THIS extends Schema<THIS, ?>, TYPE> implements Open
      * @param example one or more
      */
     public THIS example(@NonNull TYPE example) {
-//        options.remove("examples");  // multiple examples are getting replaced
-        options.put("example", example);
-        return getThis();
+        return example(example, null);
     }
 
-//    /**
-//     * adds an example to this schema
-//     * @param name distinct example name
-//     * @param example example value
-//     */
-//    public THIS addExample(@NonNull String name, TYPE example) {
-//        return addExample(name, example, null);
-//    }
-//    /**
-//     * adds an example to this schema
-//     * @param name distinct example name
-//     * @param example example value
-//     * @param summary short description for this example
-//     */
-//    public THIS addExample(@NonNull String name, TYPE example, String summary) {
-//        if (!this.options.containsKey("examples"))
-//            this.options.put("examples", new JSONObject());
-//        JSONObject examples = (JSONObject) this.options.get("examples");
-//
-//        if (this.options.containsKey("example")) {
-//            examples.put("example", this.options.get("example"));
-//            this.options.remove("example");  // remove single example
-//        }
-//
-//        JSONObject exampleObject = new JSONObject()
-//                .put("value", example)
-//                .put("summary", summary);
-//        examples.put(name, exampleObject);
-//        return getThis();
-//    }
+    /**
+     * set an example to this schema
+     * @param example one or more
+     */
+    public THIS example(@NonNull TYPE example, String summary) {
+        return addExample("default", example, summary);
+    }
+
+    /**
+     * adds an example to this schema
+     * @param name distinct example name
+     * @param example example value
+     */
+    public THIS addExample(@NonNull String name, TYPE example) {
+        return addExample(name, example, null);
+    }
+
+    /**
+     * adds an example to this schema
+     * @param name distinct example name
+     * @param example example value
+     * @param summary short description for this example
+     */
+    public THIS addExample(@NonNull String name, TYPE example, String summary) {
+        if (!this.options.containsKey("examples"))
+            this.options.put("examples", new JSONObject());
+        JSONObject examples = (JSONObject) this.options.get("examples");
+
+        JSONObject exampleObject = new JSONObject()
+                .put("value", example)
+                .put("summary", summary);
+        examples.put(name, exampleObject);
+        return getThis();
+    }
 
     /**
      * specify the only allowed options

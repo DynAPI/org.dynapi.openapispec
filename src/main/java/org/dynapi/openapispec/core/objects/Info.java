@@ -13,6 +13,8 @@ public class Info implements OpenApiSpecAble {
     /** The title of the API. */
     @NonNull
     public final String title;
+    /** A short summary of the API. */
+    public final String summary;
     /** A short description of the API. CommonMark syntax MAY be used for rich text representation. */
     public final String description;
     /** A URL to the Terms of Service for the API. MUST be in the format of a URL. */
@@ -29,6 +31,7 @@ public class Info implements OpenApiSpecAble {
     public JSONObject getOpenApiSpec() {
         return new JSONObject()
                 .put("title", title)
+                .put("summary", summary)
                 .put("description", description)
                 .put("termsOfService", termsOfServiceUrl)
                 .put("contact", Utils.getOpenApiSpec(contact))

@@ -22,11 +22,17 @@ public class OpenApi implements OpenApiSpecAble {
     /** Provides metadata about the API. The metadata MAY be used by tooling as required. */
     @NonNull
     public final Info info;
+    /** The default value for the $schema keyword within Schema Objects contained within this OAS document. This MUST be in the form of a URI. */
+    public final String jsonSchemaDialect;
     /** An array of Server Objects, which provide connectivity information to a target server.
      * If the servers property is not provided, or is an empty array, the default value would be a Server Object with a url value of {@code /}. */
     public final List<Server> servers;
     /** The available paths and operations for the API. */
-    public final Map<String, Path> paths;
+    public final Map<String, PathItem> paths;
+    /** The incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement.
+     * Closely related to the {@code callbacks} feature, this section describes requests initiated other than by an API call, for example by an out of band registration.
+     * The key name is a unique string to refer to each webhook, while the (optionally referenced) Path Item Object describes a request that may be initiated by the API provider and the expected responses. */
+    public final Map<String, PathItem> webhooks;
     /** An element to hold various schemas for the specification. */
     public final Components components;
     /** A declaration of which security mechanisms can be used across the API.
@@ -48,8 +54,10 @@ public class OpenApi implements OpenApiSpecAble {
         return new JSONObject()
                 .put("openapi", openapiVersion)
                 .put("info", Utils.getOpenApiSpec(info))
+                .put("jsonSchemaDialect", jsonSchemaDialect)
                 .put("servers", Utils.mapOpenApiSpecAble2Json(servers))
                 .put("paths", Utils.mapOpenApiSpecAble2Json(paths))
+                .put("webhooks", Utils.mapOpenApiSpecAble2Json(webhooks))
                 .put("components", Utils.getOpenApiSpec(components))
                 .put("security", (security == null || security.isEmpty()) ? null : new JSONArray(security))
                 .put("tags", Utils.mapOpenApiSpecAble2Json(tags))
