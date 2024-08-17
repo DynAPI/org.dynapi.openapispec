@@ -55,7 +55,7 @@ public class Utils {
      * @return list without {@link OpenApiSpecAble}
      */
     public static <V extends OpenApiSpecAble> JSONArray mapOpenApiSpecAble2Json(List<V> list) {
-        var result = mapOpenApiSpecAble(list);
+        List<JSONObject> result = mapOpenApiSpecAble(list);
         return result == null ? null : new JSONArray(result);
     }
 
@@ -77,7 +77,7 @@ public class Utils {
      * @return map without {@link OpenApiSpecAble}
      */
     public static <V extends OpenApiSpecAble> JSONObject mapOpenApiSpecAble2Json(Map<String, V> map) {
-        var result = mapOpenApiSpecAble(map);
+        Map<String, JSONObject> result = mapOpenApiSpecAble(map);
         return result == null ? null : new JSONObject(result);
     }
 }

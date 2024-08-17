@@ -3,6 +3,7 @@ package org.dynapi.openapispec.core.objects;
 import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;
 import org.dynapi.openapispec.core.Utils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class Operation implements OpenApiSpecAble {
     @Override
     public JSONObject getOpenApiSpec() {
         return new JSONObject()
-                .put("tags", tags)
+                .put("tags", (tags == null || tags.isEmpty()) ? null : new JSONArray(tags))
                 .put("summary", summary)
                 .put("description", description)
                 .put("externalDocs", Utils.getOpenApiSpec(externalDocs))
@@ -69,7 +70,7 @@ public class Operation implements OpenApiSpecAble {
                 .put("requestBody", Utils.getOpenApiSpec(requestBody))
                 .put("responses", Utils.mapOpenApiSpecAble2Json(responses))
                 .put("deprecated", deprecated)
-                .put("security", security)
+                .put("security", (security == null || security.isEmpty()) ? null : new JSONArray(security))
                 .put("servers", Utils.mapOpenApiSpecAble2Json(servers));
     }
 }

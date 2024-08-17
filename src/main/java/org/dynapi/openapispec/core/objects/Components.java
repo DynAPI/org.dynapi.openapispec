@@ -6,27 +6,37 @@ import org.dynapi.openapispec.core.Utils;
 import org.dynapi.openapispec.core.types.Schema;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @With
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder(toBuilder = true)
 public class Components implements OpenApiSpecAble {
     /** An object to hold reusable {@code Schema} Objects. */
-    public final Map<String, Schema<?, ?>> schemas;
+    @Builder.Default
+    public final Map<String, Schema<?, ?>> schemas = new HashMap<>();
     /** An object to hold reusable {@code Response} Objects. */
-    public final Map<String, Response> responses;
+    @Builder.Default
+    public final Map<String, Response> responses = new HashMap<>();
     /** An object to hold reusable {@code Parameter} Objects. */
-    public final Map<String, Parameter> parameters;
+    @Builder.Default
+    public final Map<String, Parameter> parameters = new HashMap<>();
     /** An object to hold reusable {@code Example} Objects. */
-    public final Map<String, Example> examples;
+    @Builder.Default
+    public final Map<String, Example> examples = new HashMap<>();
     /** An object to hold reusable {@code RequestBody} Objects. */
-    public final Map<String, RequestBody> requestBodies;
+    @Builder.Default
+    public final Map<String, RequestBody> requestBodies = new HashMap<>();
     /** An object to hold reusable {@code Header} Objects. */
-    public final Map<String, Header> headers;
+    @Builder.Default
+    public final Map<String, Header> headers = new HashMap<>();
     /** An object to hold reusable {@code SecurityScheme} Objects. */
-    public final Map<String, SecurityScheme> securitySchemes;
+    @Builder.Default
+    public final Map<String, SecurityScheme> securitySchemes = new HashMap<>();
 //    /** An object to hold reusable {@code Link} Objects. */
 //    public final Map<String, Link> links;
 //    /** An object to hold reusable {@code Callback} Objects. */
