@@ -170,15 +170,15 @@ public class OpenApiSpecBuilder {
      */
     public OpenApiSpecBuilder registerRef(@NonNull ComponentType type, @NonNull String id, OpenApiSpecAble value) {
         switch (type) {
-            case ComponentType.SCHEMA -> components.schemas.put(id, (Schema<?, ?>) value);
-            case ComponentType.PARAMETER -> components.parameters.put(id, (Parameter) value);
-            case ComponentType.EXAMPLE -> components.examples.put(id, (Example) value);
-            case ComponentType.HEADER -> components.headers.put(id, (Header) value);
-            case ComponentType.RESPONSE -> components.responses.put(id, (Response) value);
-            case ComponentType.REQUEST_BODY -> components.requestBodies.put(id, (RequestBody) value);
-            case ComponentType.SECURITY_SCHEME -> components.securitySchemes.put(id, (SecurityScheme) value);
-            case ComponentType.LINK -> components.links.put(id, (Link) value);
-            case ComponentType.PATH -> components.pathItems.put(id, (PathItem) value);
+            case SCHEMA -> components.schemas.put(id, (Schema<?, ?>) value);
+            case PARAMETER -> components.parameters.put(id, (Parameter) value);
+            case EXAMPLE -> components.examples.put(id, (Example) value);
+            case HEADER -> components.headers.put(id, (Header) value);
+            case RESPONSE -> components.responses.put(id, (Response) value);
+            case REQUEST_BODY -> components.requestBodies.put(id, (RequestBody) value);
+            case SECURITY_SCHEME -> components.securitySchemes.put(id, (SecurityScheme) value);
+            case LINK -> components.links.put(id, (Link) value);
+            case PATH -> components.pathItems.put(id, (PathItem) value);
             default -> throw new IllegalStateException("Unsupported value: " + type);
         }
         return this;
