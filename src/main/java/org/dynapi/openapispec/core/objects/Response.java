@@ -23,16 +23,17 @@ public class Response implements OpenApiSpecAble {
      * For responses that match multiple keys, only the most specific key is applicable. e.g. {@code text/plain} overrides {@code text/*}
      */
     public final Map<String, MediaType> content;
-//    /** A map of operations links that can be followed from the response.
-//     * The key of the map is a short name for the link, following the naming constraints of the names for Component Objects. */
-//    private final Map<String, Link> links;
+    /** A map of operations links that can be followed from the response.
+     * The key of the map is a short name for the link, following the naming constraints of the names for Component Objects. */
+    private final Map<String, Link> links;
 
     @Override
     public JSONObject getOpenApiSpec() {
         return new JSONObject()
                 .put("description", description)
                 .put("headers", Utils.mapOpenApiSpecAble2Json(headers))
-                .put("content", Utils.mapOpenApiSpecAble2Json(content));
+                .put("content", Utils.mapOpenApiSpecAble2Json(content))
+                .put("links", Utils.mapOpenApiSpecAble2Json(links));
     }
 
     /**
@@ -47,7 +48,7 @@ public class Response implements OpenApiSpecAble {
 
         public Ref(@NonNull String name) {
             // just ignore these fields
-            super("", null, null);
+            super("", null, null, null);
             this.ref = name;
         }
 

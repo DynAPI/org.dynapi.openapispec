@@ -44,7 +44,7 @@ public class Operation implements OpenApiSpecAble {
 //    /** A map of possible out-of band callbacks related to the parent operation.
 //     * The key is a unique identifier for the Callback Object.
 //     * Each value in the map is a {@code Callback} Object that describes a request that may be initiated by the API provider and the expected responses. */
-//    public final Map<String, Callback> callbacks;
+//    public final Map<String, Map<String, PathItem>> callbacks;
     /** Declares this operation to be deprecated. Consumers SHOULD refrain from usage of the declared operation. */
     public final Boolean deprecated;
     /** A declaration of which security mechanisms can be used for this operation.
@@ -69,6 +69,7 @@ public class Operation implements OpenApiSpecAble {
                 .put("parameters", Utils.mapOpenApiSpecAble2Json(parameters))
                 .put("requestBody", Utils.getOpenApiSpec(requestBody))
                 .put("responses", Utils.mapOpenApiSpecAble2Json(responses))
+//                .put("callbacks", Utils.mapCallbacks(callbacks))
                 .put("deprecated", deprecated)
                 .put("security", (security == null || security.isEmpty()) ? null : new JSONArray(security))
                 .put("servers", Utils.mapOpenApiSpecAble2Json(servers));
