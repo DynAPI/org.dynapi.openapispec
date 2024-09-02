@@ -26,11 +26,11 @@ public class TString extends Schema<TString, String> {
     }
 
     /**
-     * note: see {@code TString.CommonFormats.*}
-     * @param fmt name of a format
+     * @param format name of a format
+     * @see CommonFormats
      */
-    public TString format(@NonNull String fmt) {
-        options.put("format", fmt);
+    public TString format(@NonNull String format) {
+        options.put("format", format);
         return this;
     }
 

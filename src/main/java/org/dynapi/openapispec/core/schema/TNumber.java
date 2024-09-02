@@ -35,9 +35,24 @@ public class TNumber extends Schema<TNumber, Double> {
         return this;
     }
 
+    /**
+     * @param format name of a format
+     * @see CommonFormats
+     */
+    public TNumber format(@NonNull String format) {
+       options.put("format", format);
+       return this;
+    }
+
     @Override
     protected JSONObject finalized() {
         return new JSONObject()
                 .put("type", "number");
+    }
+
+    public static class CommonFormats {
+        public static final String INT32 = "int32";
+        public static final String INT64 = "int64";
+        public static final String LONG = INT64;
     }
 }

@@ -35,9 +35,23 @@ public class TInteger extends Schema<TInteger, Long> {
         return this;
     }
 
+    /**
+     * @param format name of a format
+     * @see CommonFormats
+     */
+    public TInteger format(@NonNull String format) {
+       options.put("format", format);
+       return this;
+    }
+
     @Override
     protected JSONObject finalized() {
         return new JSONObject()
                 .put("type", "integer");
+    }
+
+    public static class CommonFormats {
+        public static final String FLOAT = "float";
+        public static final String DOUBLE = "double";
     }
 }
