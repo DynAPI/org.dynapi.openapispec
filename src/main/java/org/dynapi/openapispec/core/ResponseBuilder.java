@@ -5,7 +5,7 @@ import lombok.ToString;
 import org.dynapi.openapispec.core.objects.Header;
 import org.dynapi.openapispec.core.objects.MediaType;
 import org.dynapi.openapispec.core.objects.Response;
-import org.dynapi.openapispec.core.types.Schema;
+import org.dynapi.openapispec.core.schema.Schema;
 
 import java.util.HashMap;
 import java.util.Map;

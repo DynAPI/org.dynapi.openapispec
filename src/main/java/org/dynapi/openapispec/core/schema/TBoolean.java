@@ -1,14 +1,14 @@
-package org.dynapi.openapispec.core.types;
+package org.dynapi.openapispec.core.schema;
 
 import lombok.*;
 import org.json.JSONObject;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class TAnyType extends Schema<TAnyType, Object> {
+public class TBoolean extends Schema<TBoolean, Boolean> {
     @Override
     protected JSONObject finalized() {
         return new JSONObject()
-                .put("AnyValue", new JSONObject());
+                .put("type", "boolean");
     }
 }

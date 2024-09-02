@@ -3,7 +3,7 @@ package org.dynapi.openapispec;
 import lombok.NonNull;
 import org.dynapi.openapispec.core.*;
 import org.dynapi.openapispec.core.objects.*;
-import org.dynapi.openapispec.core.types.Schema;
+import org.dynapi.openapispec.core.schema.Schema;
 import org.json.JSONObject;
 
 import java.util.*;
@@ -94,7 +94,7 @@ public class OpenApiSpecBuilder {
 
     /**
      * @see Schema
-     * @see org.dynapi.openapispec.core.types.TRef
+     * @see org.dynapi.openapispec.core.schema.TRef
      */
     public OpenApiSpecBuilder registerRefSchema(@NonNull String id, Schema<?, ?> schema) {
         return registerRef(ComponentType.SCHEMA, id, schema);

@@ -1,4 +1,4 @@
-package org.dynapi.openapispec.core.types;
+package org.dynapi.openapispec.core.schema;
 
 import lombok.*;
 import org.dynapi.openapispec.core.OpenApiSpecAble;

@@ -3,7 +3,7 @@ package org.dynapi.openapispec.core;
 import lombok.*;
 import org.dynapi.openapispec.core.objects.MediaType;
 import org.dynapi.openapispec.core.objects.RequestBody;
-import org.dynapi.openapispec.core.types.Schema;
+import org.dynapi.openapispec.core.schema.Schema;
 
 import java.util.HashMap;
 import java.util.Map;

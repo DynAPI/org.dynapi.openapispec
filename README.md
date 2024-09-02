@@ -8,7 +8,7 @@ package org.dynapi;
 
 import org.dynapi.openapispec.*;
 import org.dynapi.openapispec.core.*;
-import org.dynapi.openapispec.core.types.*;
+import org.dynapi.openapispec.core.schema.*;
 import org.json.JSONObject;
 
 public class Example {
@@ -21,22 +21,22 @@ public class Example {
         OpenApiSpecBuilder spec = new OpenApiSpecBuilder(info)
                 .logo("DynAPI-compressed.svg")
                 .registerRefResponse("500", new ResponseBuilder()
-                            .descriptionForStatus(500)
-                            .addContent("application/json", new TObject()
-                                    .example(new JSONObject()
-                                            .put("error", "NullPointerException!")
-                                            .put("detail", "Value should not be null!")
-                                    )
-                                    .addProperty("error", new TString()
-                                            .example("NullPointerException")
-                                            .description("Error Group")
-                                    )
-                                    .addProperty("detail", new TString()
-                                            .example("Value should not be null")
-                                            .description("Detailed information about the error")
-                                    )
-                            )
-                            .build()
+                        .descriptionForStatus(500)
+                        .addContent("application/json", new TObject()
+                                .example(new JSONObject()
+                                        .put("error", "NullPointerException!")
+                                        .put("detail", "Value should not be null!")
+                                )
+                                .addProperty("error", new TString()
+                                        .example("NullPointerException")
+                                        .description("Error Group")
+                                )
+                                .addProperty("detail", new TString()
+                                        .example("Value should not be null")
+                                        .description("Detailed information about the error")
+                                )
+                        )
+                        .build()
                 );
         spec.addPath("/hello/{name}", new PathBuilder()
                 .addMethod(OperationType.GET, new OperationBuilder()
