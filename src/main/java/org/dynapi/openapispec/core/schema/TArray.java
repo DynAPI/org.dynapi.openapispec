@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @ToString(callSuper = true)
@@ -15,6 +16,10 @@ public class TArray extends Schema<TArray, Object[]> {
 
     public TArray(Schema<?, ?>... types) {
         this.types.addAll(Arrays.asList(types));
+    }
+
+    public TArray(Collection<Schema<?, ?>> types) {
+        this.types.addAll(types);
     }
 
     /**
@@ -65,18 +70,26 @@ public class TArray extends Schema<TArray, Object[]> {
 
     @Override
     protected JSONObject finalized() {
-        JSONObject finalizedItems;
+        JSONObject items;
         if (types.isEmpty()) {
-            finalizedItems = new JSONObject();
+            items = new JSONObject();
         } else if (types.size() == 1) {
-            finalizedItems = types.get(0).finalized();
+            items = types.get(0).getOpenApiSpec();
         } else {
-            finalizedItems = new JSONObject()
+            items = new JSONObject()
                     .put("oneOf", new JSONArray(types.stream().map(Schema::getOpenApiSpec).toList()));
         }
 
         return new JSONObject()
                 .put("type", "array")
-                .put("items", finalizedItems);
+                .put("items", items);
+    }
+
+    @Override
+    public TArray copy() {
+        TArray copy = new TArray();
+        copy.options.putAll(this.options);
+        copy.types.addAll(this.types);
+        return copy;
     }
 }

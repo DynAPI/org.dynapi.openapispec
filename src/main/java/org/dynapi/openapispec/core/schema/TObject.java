@@ -77,4 +77,12 @@ public class TObject extends Schema<TObject, JSONObject> {
                 .put("type", "object")
                 .put("properties", finalizedProperties);
     }
+
+    @Override
+    public TObject copy() {
+        TObject copy = new TObject();
+        copy.options.putAll(this.options);
+        copy.properties.putAll(this.properties);
+        return copy;
+    }
 }

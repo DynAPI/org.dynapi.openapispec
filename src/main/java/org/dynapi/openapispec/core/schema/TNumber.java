@@ -50,6 +50,13 @@ public class TNumber extends Schema<TNumber, Double> {
                 .put("type", "number");
     }
 
+    @Override
+    public TNumber copy() {
+        TNumber copy = new TNumber();
+        copy.options.putAll(this.options);
+        return copy;
+    }
+
     public static class CommonFormats {
         public static final String INT32 = "int32";
         public static final String INT64 = "int64";

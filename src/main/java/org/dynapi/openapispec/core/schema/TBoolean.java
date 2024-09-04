@@ -11,4 +11,11 @@ public class TBoolean extends Schema<TBoolean, Boolean> {
         return new JSONObject()
                 .put("type", "boolean");
     }
+
+    @Override
+    public TBoolean copy() {
+        TBoolean copy = new TBoolean();
+        copy.options.putAll(this.options);
+        return copy;
+    }
 }

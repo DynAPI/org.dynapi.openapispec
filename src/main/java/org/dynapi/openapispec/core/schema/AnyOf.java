@@ -27,4 +27,12 @@ public class AnyOf extends Schema<AnyOf, Void> {
         return new JSONObject()
                 .put("anyOf", new JSONArray(subSchemas.stream().map(Schema::getOpenApiSpec).toList()));
     }
+
+    @Override
+    public AnyOf copy() {
+        AnyOf copy = new AnyOf();
+        copy.options.putAll(this.options);
+        copy.subSchemas.addAll(this.subSchemas);
+        return copy;
+    }
 }

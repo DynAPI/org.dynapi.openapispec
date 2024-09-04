@@ -21,4 +21,11 @@ public class TRef extends Schema<TRef, Void> {
         return new JSONObject()
                 .put("$ref", String.format("#/components/%s/%s", type.value, name));
     }
+
+    @Override
+    public TRef copy() {
+        TRef copy = new TRef(type, name);
+        copy.options.putAll(this.options);
+        return copy;
+    }
 }

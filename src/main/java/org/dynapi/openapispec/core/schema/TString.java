@@ -50,6 +50,13 @@ public class TString extends Schema<TString, String> {
                 .put("type", "string");
     }
 
+    @Override
+    public TString copy() {
+        TString copy = new TString();
+        copy.options.putAll(this.options);
+        return copy;
+    }
+
     public static class CommonFormats {
         // OpenAPI built-in string formats
         public static final String BYTE = "byte";

@@ -11,4 +11,11 @@ public class TAnyType extends Schema<TAnyType, Object> {
         return new JSONObject()
                 .put("AnyValue", new JSONObject());
     }
+
+    @Override
+    public TAnyType copy() {
+        TAnyType copy = new TAnyType();
+        copy.options.putAll(this.options);
+        return copy;
+    }
 }

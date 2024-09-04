@@ -124,4 +124,9 @@ public abstract class Schema<THIS extends Schema<THIS, ?>, TYPE> implements Open
     }
 
     protected abstract JSONObject finalized();
+
+    /**
+     * creates a <b>not deep</b> copy of this schema
+     */
+    public abstract Schema<THIS, TYPE> copy();
 }

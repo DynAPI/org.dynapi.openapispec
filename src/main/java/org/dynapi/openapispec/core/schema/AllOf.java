@@ -27,4 +27,12 @@ public class AllOf extends Schema<AllOf, Void> {
         return new JSONObject()
                 .put("allOf", new JSONArray(subSchemas.stream().map(Schema::getOpenApiSpec).toList()));
     }
+
+    @Override
+    public AllOf copy() {
+        AllOf copy = new AllOf();
+        copy.options.putAll(this.options);
+        copy.subSchemas.addAll(this.subSchemas);
+        return copy;
+    }
 }

@@ -27,4 +27,12 @@ public class OneOf extends Schema<OneOf, Void> {
         return new JSONObject()
                 .put("oneOf", new JSONArray(subSchemas.stream().map(Schema::getOpenApiSpec).toList()));
     }
+
+    @Override
+    public OneOf copy() {
+        OneOf copy = new OneOf();
+        copy.options.putAll(this.options);
+        copy.subSchemas.addAll(this.subSchemas);
+        return copy;
+    }
 }

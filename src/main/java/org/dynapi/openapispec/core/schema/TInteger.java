@@ -50,6 +50,13 @@ public class TInteger extends Schema<TInteger, Long> {
                 .put("type", "integer");
     }
 
+    @Override
+    public TInteger copy() {
+        TInteger copy = new TInteger();
+        copy.options.putAll(this.options);
+        return copy;
+    }
+
     public static class CommonFormats {
         public static final String FLOAT = "float";
         public static final String DOUBLE = "double";
