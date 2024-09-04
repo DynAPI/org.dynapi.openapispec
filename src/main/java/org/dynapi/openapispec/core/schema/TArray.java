@@ -72,7 +72,7 @@ public class TArray extends Schema<TArray, Object[]> {
             finalizedItems = types.get(0).finalized();
         } else {
             finalizedItems = new JSONObject()
-                    .put("oneOf", new JSONArray(types.stream().map(Schema::finalized).toList()));
+                    .put("oneOf", new JSONArray(types.stream().map(Schema::getOpenApiSpec).toList()));
         }
 
         return new JSONObject()

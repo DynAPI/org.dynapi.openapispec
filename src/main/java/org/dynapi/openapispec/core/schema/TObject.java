@@ -71,7 +71,7 @@ public class TObject extends Schema<TObject, JSONObject> {
 
         Map<String, JSONObject> finalizedProperties = properties.entrySet()
                 .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().finalized()));
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().getOpenApiSpec()));
 
         return new JSONObject()
                 .put("type", "object")
