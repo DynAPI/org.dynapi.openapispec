@@ -21,14 +21,6 @@ public class ResponseBuilder {
     private final Map<String, MediaType> content = new HashMap<>();
 
     /**
-     * sets the description based of the status code
-     * @param status http-status code
-     */
-    public ResponseBuilder descriptionForStatus(int status) {
-        return description(Utils.statusCodeToText(status));
-    }
-
-    /**
      * @param description description of this response
      */
     public ResponseBuilder description(String description) {
