@@ -58,7 +58,9 @@ public class TInteger extends Schema<TInteger, Long> {
     }
 
     public static class CommonFormats {
-        public static final String FLOAT = "float";
-        public static final String DOUBLE = "double";
+        public static final String INT32 = "int32";
+        public static final String INT = INT32;
+        public static final String INT64 = "int64";
+        public static final String LONG = INT64;
     }
 }
